@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+          <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Customer Care</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div id="chatMessages">
+    
+    <div class="message2">
+      <div class="innterMessage2">
+        <div class="username">John Mensah</div>
+        <div class="message2">Hello there, i have a question</div>
+      </div>
+    </div>
+    <div class="message">
+      <div class="innterMessage">
+        <div class="username">Customer Service</div>
+        <div class="message">Hi, John Mensah, welcome to our cusotmer service. Kindly let us know how we can help</div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+        <div id="footer">
+          <ion-input type="text" [(ngModel)]="message"></ion-input>
+         
+          <ion-button icon-only color="primary"><ion-icon name="send"></ion-icon></ion-button>
+
+        </div>
+
+      </ion-toolbar>
+    </ion-footer>

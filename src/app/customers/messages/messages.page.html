@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/dashboard"></ion-back-button>
+        </ion-buttons>
+    <ion-title>All Messages</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- List of Sliding Items -->
+<ion-list>
+    <ion-item-sliding>
+      <ion-item routerLink='/customers/bill-detail' >
+        <small>From</small><br>
+        <ion-label>Customer Service</ion-label><br>
+        <p>Please see details for your new bill below</p>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="unread(item)">Delete</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  
+    <ion-item-sliding>
+      <ion-item routerLink='/customers/bill-detail'>
+        <small>From</small>
+        <ion-label>Ben Kofi</ion-label>
+        <p>Hi, please thank you for you feedback</p>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="unread(item)">Delete</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

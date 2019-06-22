@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/staffs/staff-dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>All Users ({{ AllUsers.length }})</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab
+    routerLink="/register"
+    vertical="top"
+    horizontal="end"
+    edge
+    slot="fixed"
+  >
+    <ion-fab-button color="success">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!-- List of Sliding Items -->
+  <ion-list>
+    <ion-item-sliding *ngFor="let data of AllUsers">
+      <ion-item routerLink="/staffs/all-users/{{ data.id }}">
+        <p>
+          <small>Joined on {{ data.date_joined }}</small>
+          <br />
+          {{ data.name }}
+          <span
+            *ngIf="data.isSuspended == 0"
+            class="status"
+            style="background-color: green;"
+            >Active</span
+          >
+          <span
+            *ngIf="data.isSuspended == 1"
+            class="status"
+            style="background-color: red;"
+            >Suspended</span
+          >
+        </p>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,39 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>
+        <ion-img class="ion-logo" src="/assets/logo.png"></ion-img>
+    </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<ion-content>
+    <p></p><p></p>
+      <ion-grid padding>
+          <ion-row color="primary" justify-content-center>
+            <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+                <ion-img class="ion-logo" src="/assets/logo.png"></ion-img>
+                <h4 style="text-align: center;">Login to your account</h4>
+                <!-- <ion-card class="welcome-card"> -->
+                  <ion-item>
+                    <!-- <ion-label position="fixed">Email</ion-label> -->
+                    <ion-input type="text" placeholder="Enter username or email"  [(ngModel)]="loginData.username" required></ion-input>
+                  </ion-item>
+                  <ion-item>
+                      <!-- <ion-label position="fixed">Password</ion-label> -->
+                      <ion-input type="password" placeholder="Enter password" [(ngModel)]="loginData.password" required></ion-input>
+                  </ion-item>
+                <!-- </ion-card> -->
+              <!-- Input with placeholder -->
+              <p></p>
+              <ion-button color="light" (click)="login()" expand="block">Login</ion-button>
+              <p></p>
+              <ion-row>
+                  <div text-center>
+                If you don't have an account, please <a routerLink='/register'>
+                  Create Account</a>
+                  </div>
+              </ion-row>
+              <!-- <ion-button expand="block" color="dark" (click)="register()">Create Account</ion-button> -->
+            </ion-col>
+          </ion-row>
+    </ion-grid>
+</ion-content>

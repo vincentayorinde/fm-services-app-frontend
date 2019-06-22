@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/customers/dashboard"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Servies Reports</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+        <!-- List of Sliding Items -->
+<ion-list> 
+
+    <ion-item-sliding *ngFor="let data of AllRequestsData">
+        <ion-item *ngIf="data.status == 'Not Started'" routerLink='/customers/all-request/{{  data.id }}'>
+          <p>
+            <small>{{  data.date_added }}</small>
+            <br>
+              {{  data.service_type }}
+               <span class="status" style="background-color: gray;">Not-Started</span>
+          
+          </p>
+        </ion-item>
+        <ion-item *ngIf="data.status == 'On Going'" routerLink='/customers/all-request/{{  data.id }}'>
+          <p>
+            <small>{{  data.date_added }}</small>
+            <br>
+              {{  data.service_type }}
+              <span class="status" style="background-color: orange;">On-Going</span>
+          
+          </p>
+        </ion-item>
+        <ion-item *ngIf="data.status == 'Completed'" routerLink='/customers/all-request/{{  data.id }}'>
+          <p>
+            <small>{{  data.date_added }}</small>
+            <br>
+              {{  data.service_type }}
+              <span class="status" style="background-color: green;">Completed</span>
+          
+          </p>
+        </ion-item>
+        <!-- <ion-item-options side="end">
+          <ion-item-option (click)="unread(item)">Delete</ion-item-option>
+        </ion-item-options> -->
+      </ion-item-sliding>    
+     
+  </ion-list>
+</ion-content>

@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/customers/dashboard"></ion-back-button>
+        </ion-buttons>
+    <ion-title>New Request</ion-title>
+  </ion-toolbar> 
+</ion-header>
+
+<ion-content>
+        <ion-grid padding>
+            <ion-row color="primary" justify-content-center>
+              <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+                <h5>Service Details</h5>
+                  <ion-item>
+                      <ion-label position="stacked">Service Type</ion-label>
+                      <ion-select [(ngModel)]="requestData.service_type" placeholder="Select">
+                        <ion-select-option value="General Maintenance">General Maintenance</ion-select-option>
+                        <ion-select-option value="Housekeeping and Janitorial Services">Housekeeping and Janitorial Services</ion-select-option>
+                        <ion-select-option value="Landscaping and Ground Maintenance">Landscaping and Ground Maintenance</ion-select-option>
+                        <ion-select-option value="General Building Maintenance Renovation">General Building Maintenance/Renovation</ion-select-option>
+                        <ion-select-option value="Securities/Fire Alarm Systems">Securities/Fire Alarm Systems</ion-select-option>
+                        <ion-select-option value="Facilities Management Consultancy">Facilities Management Consultancy</ion-select-option>
+                        <ion-select-option value="Property Management">Property Management</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Priority</ion-label>
+                        <ion-select [(ngModel)]="requestData.service_priority" placeholder="Select">
+                          <ion-select-option value="Routine">Routine</ion-select-option>
+                          <ion-select-option value="Emergency">Emergency (1 Day)</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    <ion-item>
+                          <ion-label position="floating">Description</ion-label>
+                          <ion-textarea [(ngModel)]="requestData.service_desc"></ion-textarea>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Start Date</ion-label>
+                        <ion-datetime [(ngModel)]="requestData.start_date" value="2019-04-19" min="2019-01" max="2030"
+                          [dayShortNames]="customDayShortNames"
+                          displayFormat="DDD. MMM DD, YY"
+                          monthShortNames="Jan., Feb., Mar., Apr., May, Jun., Jul., Aug., Sep., Cct., Nov., Dec."></ion-datetime>
+                      </ion-item>
+                      <ion-item>
+                          <ion-label>End Date</ion-label>
+                          <ion-datetime [(ngModel)]="requestData.end_date" value="2019-04-25" min="2019-01" max="2030"
+                            [dayShortNames]="customDayShortNames"
+                            displayFormat="DDD. MMM DD, YY"
+                            monthShortNames="Jan., Feb., Mar., Apr., May, Jun., Jul., Aug., Sep., Cct., Nov., Dec."></ion-datetime>
+                        </ion-item>
+                        <h5>Location Details</h5>
+                        <ion-item>
+                          <ion-label position="stacked">Tel No.</ion-label>
+                          <ion-input [(ngModel)]="requestData.tel_no"  type="tel" placeholder="Enter No." required></ion-input>
+                      </ion-item>
+                        <ion-item>
+                          <ion-label position="stacked">House No.</ion-label>
+                          <ion-input [(ngModel)]="requestData.house_no" type="text" placeholder="Enter House No." required></ion-input>
+                      </ion-item>
+                        <ion-item>
+                            <ion-label position="stacked">Area</ion-label>
+                            <ion-input [(ngModel)]="requestData.house_area" type="text" placeholder="Enter area" required></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="stacked">Landmark</ion-label>
+                            <ion-input [(ngModel)]="requestData.house_landmark" type="text" placeholder="Enter landmark" required></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="stacked">Digital Address</ion-label>
+                            <ion-input [(ngModel)]="requestData.digital_address" type="text" placeholder="Enter digital address" required></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="stacked">City</ion-label>
+                            <ion-input  [(ngModel)]="requestData.city" type="text" placeholder="Enter city" required></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="stacked">Select Region</ion-label>
+                            <ion-select [(ngModel)]="requestData.region"  placeholder="Select">
+                              <ion-select-option value="Ashanti">Ashanti</ion-select-option>
+                              <ion-select-option value="Brong-Ahafo">Brong-Ahafo</ion-select-option>
+                              <ion-select-option value="Central">Central</ion-select-option>
+                              <ion-select-option value="Eastern">Eastern</ion-select-option>
+                              <ion-select-option value="Greater Accra">Greater Accra</ion-select-option>
+                              <ion-select-option value="Northern">Northern</ion-select-option>
+                              <ion-select-option value="Upper East">Upper East</ion-select-option>
+                              <ion-select-option value="Upper West">Upper West</ion-select-option>
+                              <ion-select-option value="Volta">Volta</ion-select-option>
+                              <ion-select-option value="Western">Western</ion-select-option>
+                            </ion-select>
+                          </ion-item>
+                        
+                <ion-button color="light" (click)="request()" expand="block">Make Request</ion-button>
+                <p></p>
+              </ion-col>
+            </ion-row>
+      </ion-grid>
+
+  </ion-content>

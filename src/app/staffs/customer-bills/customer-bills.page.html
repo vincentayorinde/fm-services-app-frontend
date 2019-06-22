@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/staffs/dashboard"></ion-back-button>
+          </ion-buttons>
+      <ion-title>All Customer Bills</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+          <!-- List of Sliding Items --> 
+  <ion-list>
+      <ion-item-sliding *ngFor="let data of AllBills">
+          <ion-item *ngIf="data.status == 'Paid'" routerLink='/staffs/customer-bills/{{  data.id }}'>
+            <p>
+              <small>{{  data.generated_at }}</small>
+              <br>
+                {{  data.service_type }} Request is 
+              <span class="status" style="background-color: green;">Paid</span>
+           </p>
+          </ion-item>
+          <ion-item *ngIf="data.status == 'Not Paid'" routerLink='/staffs/customer-bills/{{  data.id }}'>
+            <p>
+              <small>{{  data.generated_at }}</small>
+              <br>
+                {{  data.service_type }} Request is 
+                <span class="status" style="background-color: orange;">Un-paid</span>
+                
+              </p>
+            </ion-item>
+            <ion-item *ngIf="data.date_due >= todayDate" routerLink='/staffs/customer-bills/{{  data.id }}'>
+              <p>
+                <small>{{  data.generated_at }}</small>
+                <br>
+                  {{  data.service_type }} Request is 
+                <span class="status" style="background-color: red;">Overdue</span>
+              
+              </p>
+              </ion-item>
+          </ion-item-sliding>
+    </ion-list>
+  </ion-content>
+  

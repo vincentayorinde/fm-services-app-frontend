@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/dashboard"></ion-back-button>
+        </ion-buttons>
+    <ion-title>All payments</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+        <!-- List of Sliding Items -->
+<ion-list>
+    <ion-item-sliding *ngFor="let data of AllPaymentsData">
+        <ion-item *ngIf="data.approval == 'Confirmed'" routerLink='/customers/payments/{{  data.id }}'>
+          <p>
+            {{  data.generated_at }}
+            <br>
+            Payment of <strong><span style="color: green;">¢ {{data.amount}}</span></strong> for <strong> {{  data.service_type }}</strong> is 
+            <span class="status" style="background-color: green;">Completed</span>
+          
+          </p>
+        </ion-item>
+        <ion-item  *ngIf="data.approval == 'Not Confirmed Yet'" routerLink='/customers/payments/{{  data.id }}'>
+            <p>
+              {{  data.generated_at }}
+              <br>
+              Payment of <strong><span style="color: green;">¢ {{data.amount}}</span></strong> for <strong> {{  data.service_type }}</strong> is 
+              <span class="status" style="background-color: orange;">In Progress</span>
+              
+            </p>
+          </ion-item>
+          <ion-item  *ngIf="data.approval == 'Cancelled'" routerLink='/customers/payments/{{  data.id }}'>
+            <p>
+              {{  data.generated_at }}
+              <br>
+              Payment of <strong><span style="color: green;">¢ {{data.amount}}</span></strong> for <strong> {{  data.service_type }}</strong> is 
+              <span class="status" style="background-color: gray;">Cancelled</span>
+            
+            </p>
+            </ion-item>
+         
+        </ion-item-sliding>
+  </ion-list>
+</ion-content>

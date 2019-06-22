@@ -1,0 +1,53 @@
+.innerMessage {
+  display: inline-block;
+  padding: 5px 10px;
+  background: blue;
+  margin: 5px;
+  color: white;
+  border-radius: 3px;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 80%;
+}
+
+.message {
+  font-size: 100%;
+  background-color: blue;
+  color: white;
+  border-radius: 10px;
+  padding: 4px;
+  float: left;
+  margin-bottom: 6px;
+}
+
+.message2 {
+  font-size: 100%;
+  background-color:#6ebd21;
+  color: white;
+  border-radius: 10px;
+  padding: 4px;
+  float: right;
+  margin-bottom: 6px;
+
+}
+.elem button {
+  border-radius: 0;
+  margin: 0;
+}
+
+div#footer div.elem:first-child {
+  flex-grow: 1;
+}
+
+div#footer {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+ion-toolbar {
+  margin: 0;
+  padding: 0 !important;
+}

@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/staffs/customer-requests"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Customer Request Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="header">
+      <ion-col size="8">
+        <strong>Customer Name</strong> <br />
+        <small
+          ><strong>{{ singleRequestData.user_name }}</strong></small
+        >
+      </ion-col>
+      <ion-col id="date" size="4">
+        <div>
+          <small>{{ singleRequestData.date_added }}</small>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="body">
+      <ion-col class="rec-title" size="4">
+        <small>Service Type: </small><br />
+        <small>Service Desc:</small><br />
+        <small>House No: </small><br />
+        <small>Area: </small><br />
+        <small>Landmark: </small><br />
+        <small>Digital Address: </small><br />
+        <small>City: </small><br />
+        <small>Region: </small><br />
+        <small>Customer Start Date:</small><br />
+        <small>Customer End Date: </small><br />
+        <small>Status:</small><br />
+        <small>Admin started on:</small><br />
+        <small>Admin ended on:</small><br />
+        <small>Served by:</small><br />
+      </ion-col>
+      <ion-col class="rec-title" id="date" size="8">
+        <small>{{ singleRequestData.service_type }}</small
+        ><br />
+        <small> {{ singleRequestData.service_desc }} </small><br />
+        <small> {{ singleRequestData.house_no }}</small
+        ><br />
+        <small> {{ singleRequestData.house_area }}</small
+        ><br />
+        <small> {{ singleRequestData.house_landmark }}</small
+        ><br />
+        <small> {{ singleRequestData.digital_address }}</small
+        ><br />
+        <small> {{ singleRequestData.city }}</small
+        ><br />
+        <small> {{ singleRequestData.region }}</small
+        ><br />
+        <small> {{ singleRequestData.start_date }}</small
+        ><br />
+        <small> {{ singleRequestData.end_date }}</small
+        ><br />
+        <small> {{ singleRequestData.status }}</small
+        ><br />
+        <small> {{ singleRequestData.admin_started_at }}</small
+        ><br />
+        <small> {{ singleRequestData.admin_ended_at }}</small
+        ><br />
+        <small> {{ singleRequestData.served_by }}</small
+        ><br />
+      </ion-col>
+    </ion-row>
+    <hr />
+    <ion-row class="">
+      <ion-col class="" size="6">
+        <ion-button
+          *ngIf="singleRequestData.status == 'Not Started'"
+          color="success"
+          (click)="startJob()"
+          expand="block"
+          >Start Job</ion-button
+        >
+        <ion-button
+          *ngIf="singleRequestData.status == 'On Going'"
+          color="light"
+          (click)="endJob()"
+          expand="block"
+          >Finish Job</ion-button
+        >
+        <ion-button
+          *ngIf="singleRequestData.status == 'Completed'"
+          color="success"
+          disabled=""
+          expand="block"
+          >Job Completed</ion-button
+        >
+      </ion-col>
+      <ion-col class="" size="6">
+        <ion-button
+          *ngIf="singleRequestData.bill_generated_at == null"
+          color="primary"
+          routerLink="/staffs/create-bill/{{ singleRequestData.id }}"
+          expand="block"
+          >Generate Bill</ion-button
+        >
+        <ion-button
+          *ngIf="singleRequestData.bill_generated_at !== null"
+          color="light"
+          routerLink="/staffs/customer-bills/{{ singleRequestData.id }}"
+          expand="block"
+          >View Bill</ion-button
+        >
+        <ion-button
+          *ngIf="singleRequestData.bill_generated_at == null"
+          color="light"
+          disabled
+          expand="block"
+          >No Blll Yet</ion-button
+        >
+        <p></p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

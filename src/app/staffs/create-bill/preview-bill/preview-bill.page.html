@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/create-bill/"></ion-back-button>
+          </ion-buttons>
+      <ion-title>Bill Preview</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-grid>
+        <ion-img class="ion-logo" src="../../assets/logo.png"></ion-img>
+        <ion-row class="header">
+          <ion-col size="8">
+            <strong>{{ singleRequestData.user_name }}</strong> <br>
+            <small><strong>Bill</strong>  #12345678900</small>
+          </ion-col>
+          <ion-col id="date" size="4">
+            <div>
+              <small>May 3, 2019</small>
+            </div>
+           </ion-col>
+        </ion-row>
+        <ion-row class="body">
+          
+            <ion-col class="rec-title" size="4">
+             <small><strong>Items</strong></small><br>
+             <small  *ngFor="let data of this.billData.billItems.billItems" >{{ data.name }}<br></small>
+            </ion-col>
+            <ion-col class="rec-title"  size="2">
+                <small><strong>Qty</strong></small><br>
+                <small  *ngFor="let data of this.billData.billItems.billItems" >{{ data.qty }}<br></small>
+
+             </ion-col>
+             <ion-col class="rec-title" size="3">
+                <small><strong>Unit</strong></small><br>
+                <small  *ngFor="let data of this.billData.billItems.billItems" >¢ {{ data.price }}<br></small>
+
+             </ion-col>
+             <ion-col class="rec-title" size="3">
+                <small><strong>Total </strong></small><br>
+                <small  *ngFor="let sub of this.subtotal" >¢ {{ sub }}<br></small>
+
+             </ion-col>
+          </ion-row>
+          <hr>
+          <ion-row class="body">
+              <ion-col class="rec-title-total" size="7">
+              <strong><small>Grand Total</small></strong>  
+              </ion-col>
+              <ion-col class="rec-title-total" id="date" size="5">
+                  <strong><small>¢ {{ this.billData.amount }}</small></strong>
+               </ion-col>
+          </ion-row>
+          <p></p>
+          <ion-button *ngIf="singleRequestData.bill_generated_at == null" color="success" (click)="sendToCustomer()" expand="block">Send to Customer</ion-button>
+          <p></p>
+      </ion-grid>
+    
+  </ion-content>
+  

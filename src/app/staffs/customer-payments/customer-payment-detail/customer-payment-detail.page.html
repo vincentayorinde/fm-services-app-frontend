@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/staffs/customer-payments"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Customer Payment Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="header">
+      <ion-col size="8">
+        <strong>FM Services</strong> <br />
+        <small><strong>Receipt</strong> #{{ singlePaymentData.id }}</small>
+      </ion-col>
+      <ion-col id="date" size="4">
+        <div>
+          <small></small>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="body" padding style="line-height: 25px">
+      Date & Time: {{ singlePaymentData.paid_at }}
+      <p>
+        Amount recieved from
+        <span style="text-decoration: underline"
+          ><strong>{{ singlePaymentData.user_name }}</strong></span
+        >
+        <br />
+        Being payment for
+        <span style="text-decoration: underline"
+          ><strong>{{ singlePaymentData.service_type }}</strong></span
+        >
+        Service<br />
+        Amount
+        <span style="text-decoration: underline"
+          ><strong>GHS {{ singlePaymentData.amount }}</strong></span
+        >
+      </p>
+    </ion-row>
+    <hr />
+    <ion-row class="body" padding>
+      <p>
+        Status: <strong>{{ singlePaymentData.approval }}</strong
+        ><br />
+        Payment Mode: <strong>Mobile Money</strong><br />
+        Signed by: <strong>Management</strong>
+      </p>
+    </ion-row>
+    <ion-row class="body" padding>
+      <strong
+        ><small
+          >NOTE: PAYMENT SUBMITTED WILL NOT BE REFUNDED IN ANY CASE</small
+        ></strong
+      >
+    </ion-row>
+    <p *ngIf="this.adminUser.userData.role == 'admin'">
+      <ion-button
+        *ngIf="singlePaymentData.approval == 'Not Confirmed Yet'"
+        color="success"
+        (click)="confirmPayment()"
+        expand="block"
+        >Confirm Payment</ion-button
+      >
+      <ion-button
+        *ngIf="singlePaymentData.approval == 'Confirmed'"
+        color="success"
+        disabled
+        expand="block"
+        >Already Confirmed</ion-button
+      >
+    </p>
+  </ion-grid>
+</ion-content>
