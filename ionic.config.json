@@ -1,5 +1,7 @@
 {
   "name": "fm-services-main",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

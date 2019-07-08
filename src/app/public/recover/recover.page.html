@@ -6,34 +6,23 @@
       <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
         <div style="margin-bottom: 4rem"></div>
         <ion-img class="ion-logo" src="/assets/logo.png"></ion-img>
-        <h4 style="text-align: center;">Login to your account</h4>
+        <h4 style="text-align: center;">Enter your Email</h4>
         <ion-item>
           <ion-input
             type="text"
-            placeholder="Enter username or email"
+            placeholder="Enter email"
             [(ngModel)]="loginData.username"
             required
           ></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-input
-            type="password"
-            placeholder="Enter password"
-            [(ngModel)]="loginData.password"
-            required
-          ></ion-input>
-        </ion-item>
+
         <p></p>
         <ion-button color="light" (click)="login()" expand="full"
-          >Login</ion-button
+          >Recover</ion-button
         >
         <p></p>
-        <ion-button color="dark" routerLink="/register" expand="full"
-          >Join Today</ion-button
-        >
         <h5 style="text-align: center">
-          Forgotten your Password ?
-          <a routerLink="/recover"> Recover it</a>
+          We'll send your password reset code
         </h5>
       </ion-col>
     </ion-row>

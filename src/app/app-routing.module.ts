@@ -7,7 +7,10 @@ const routes: Routes = [
   { path: 'register', loadChildren: './public/register/register.module#RegisterPageModule' },
   { path: 'customers', loadChildren: './customers/customer-routing.module#CustomerRoutingModule'},
   { path: 'logout', loadChildren: './public/logout/logout.module#LogoutPageModule' },
-  { path: 'staffs', loadChildren: './staffs/staff-routing.module#StaffRoutingModule' }
+  { path: 'staffs', loadChildren: './staffs/staff-routing.module#StaffRoutingModule' },
+  { path: 'recover', loadChildren: './public/recover/recover.module#RecoverPageModule' },
+  { path: 'reset-password', loadChildren: './public/reset-password/reset-password.module#ResetPasswordPageModule' },
+  { path: 'verify', loadChildren: './public/verify/verify.module#VerifyPageModule' }
 ];
 
 @NgModule({

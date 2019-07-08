@@ -47,10 +47,6 @@ const routes: Routes = [
       "./customer-bills/customer-bill-detail/customer-bill-detail.module#CustomerBillDetailPageModule"
   },
   {
-    path: "register",
-    loadChildren: "./public/register/register.module#RegisterPageModule"
-  },
-  {
     path: "all-users",
     loadChildren: "./all-users/all-users.module#AllUsersPageModule"
   },
@@ -58,8 +54,11 @@ const routes: Routes = [
     path: "all-users/:user-detail",
     loadChildren:
       "./all-users/user-detail/user-detail.module#UserDetailPageModule"
-  },  { path: 'add-user', loadChildren: './add-user/add-user.module#AddUserPageModule' }
-
+  },
+  {
+    path: "add-user",
+    loadChildren: "./add-user/add-user.module#AddUserPageModule"
+  }
 ];
 
 @NgModule({
