@@ -3,5 +3,11 @@
   "integrations": {
     "cordova": {}
   },
+  "proxies": [
+    {
+      "path": "/fm-s",
+      "proxyUrl": "https://ezybuygh.com/fm-s"
+    }
+  ],
   "type": "angular"
 }
