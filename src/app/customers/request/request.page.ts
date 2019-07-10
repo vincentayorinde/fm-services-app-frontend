@@ -2,10 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import {
   ToastController,
   NavController,
-  AlertController
+  AlertController,
+  Platform
 } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { RequestService } from "../../services/request.service";
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: "app-request",
@@ -23,8 +25,21 @@ export class RequestPage implements OnInit {
     public requestService: RequestService,
     private toastController: ToastController,
     private navCtrl: NavController,
-    private router: Router
-  ) {}
+    private router: Router,
+    private localNotifications: LocalNotifications,
+    private plt: Platform
+  ) {
+    // this.plt.ready().then((rdy) => {
+    //   this.localNotifications.on('click', (notification, state) => {
+    //     let json = JSON.parse(notification.data)
+    //     let alert = this.alertController.create({
+    //       title: notification.title,
+    //       subTitle: json.mydata
+    //     });
+    //     alert.present();
+    //   });
+    // });
+  }
   getUserID() {
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userID = data.userData.id;
@@ -53,7 +68,15 @@ export class RequestPage implements OnInit {
     region: "",
     status: "Not Started"
   };
-
+  sendNotification() {
+    this.localNotifications.schedule({
+      id: 1,
+      title: 'Your Nofication',
+      text: 'FM Services Notification',
+      trigger: { at: new Date(new Date().getTime() + 5 * 1000 )},
+      data: { mydata: 'This is the real notification content' },
+    });
+  }
   request() {
     if (
       this.requestData.service_type &&
@@ -78,6 +101,7 @@ export class RequestPage implements OnInit {
 
             this.router.navigate(["customers", "dashboard"]);
             this.presentAlert("Request as be placed, We'll call you shortly");
+            this.sendNotification();
           } else {
             this.presentToast(
               "Please give valid username and password",

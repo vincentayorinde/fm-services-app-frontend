@@ -9,16 +9,15 @@
 
 <ion-content>
         <!-- List of Sliding Items -->
-<ion-list> 
-
-    <ion-item-sliding *ngFor="let data of AllRequestsData">
+<ion-list *ngIf="AllRequestsData;else loader"> 
+<ion-searchbar animated (ionChange)="search( $event )"></ion-searchbar>
+    <ion-item-sliding *ngFor="let data of AllRequestsData | searchFilter: toSearch">
         <ion-item *ngIf="data.status == 'Not Started'" routerLink='/customers/all-request/{{  data.id }}'>
           <p>
             <small>{{  data.date_added }}</small>
             <br>
               {{  data.service_type }}
-               <span class="status" style="background-color: gray;">Not-Started</span>
-          
+               <span class="status" style="background-color: gray;">Not-Started</span> 
           </p>
         </ion-item>
         <ion-item *ngIf="data.status == 'On Going'" routerLink='/customers/all-request/{{  data.id }}'>
@@ -26,8 +25,7 @@
             <small>{{  data.date_added }}</small>
             <br>
               {{  data.service_type }}
-              <span class="status" style="background-color: orange;">On-Going</span>
-          
+              <span class="status" style="background-color: orange;">On-Going</span>   
           </p>
         </ion-item>
         <ion-item *ngIf="data.status == 'Completed'" routerLink='/customers/all-request/{{  data.id }}'>
@@ -39,10 +37,24 @@
           
           </p>
         </ion-item>
-        <!-- <ion-item-options side="end">
-          <ion-item-option (click)="unread(item)">Delete</ion-item-option>
-        </ion-item-options> -->
       </ion-item-sliding>    
-     
   </ion-list>
+  <h6 *ngIf="noData" style="text-align: center">{{ noData.message }}</h6>
 </ion-content>
+<!-- <script onload="myFunction()">
+  function myFunction(){
+    const searchbar = document.querySelector('ion-searchbar');
+    const items = Array.from(document.querySelector('ion-list').children);
+    console.log('>>>>>>>>> the items', items);
+    searchbar.addEventListener('searchbar-input', handleInput);
+    function handleInput(event) {
+      const query = event.target.value.toLowerCase();
+      requestAnimationFrame(() => {
+        items.forEach(item => {
+          const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+          item.style.display = shouldShow ? 'block' : 'none';
+        });
+      });
+    }
+  }    
+  </script> -->

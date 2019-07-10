@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-all-requests',
@@ -9,9 +10,20 @@ import { RequestService } from '../../services/request.service';
 export class AllRequestsPage implements OnInit {
   userID: number;
   public AllRequestsData : any; 
-  constructor(public requestService: RequestService) {
+  public loader: any;
+  public noData: any;
+  toSearch = '';
+  constructor(public requestService: RequestService, public loadingController: LoadingController) {
     this.getRequests();
+    this.presentLoading();
    }
+    presentLoading =  async () =>  {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
+    this.loader = await loading.present();
+  }
 
  
   getUserID(){
@@ -22,8 +34,11 @@ export class AllRequestsPage implements OnInit {
 
   getRequests(){
     this.requestService.getRequests(this.getUserID()).subscribe((result) => {
-      console.log(result);
-      this.AllRequestsData = result;
+      if(result.length > 0){
+        this.AllRequestsData = result;
+      }else{
+         this.noData = {"message":"No data yet"};
+      }
     }, (err) => {
       console.log(err);
     })
@@ -32,6 +47,9 @@ export class AllRequestsPage implements OnInit {
 
   }
   ngOnInit() {
+  }
+  search(event){
+    this.toSearch = event.detail.value;
   }
 
 }

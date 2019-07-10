@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Headers, RequestOptions } from "@angular/http";
 import { map } from "rxjs/operators";
 
-let apiURL = "http://localhost/fm-services-api/public/index.php/api/users";
+let apiURL = "https://ezybuygh.com/fm-s/public/index.php/api/users";
 
 @Injectable({
   providedIn: "root"
@@ -10,7 +10,7 @@ let apiURL = "http://localhost/fm-services-api/public/index.php/api/users";
 export class UsersService {
   constructor(public http: Http) {}
   setHeaders() {
-    let headerType = "application/json; charset=UTF-8";
+    let headerType = {'Access-Control-Allow-Origin':'*', 'Content-Type': 'application/json' };
     let headers = new Headers({ "Content-Type": headerType });
     let options = new RequestOptions({ headers: headers });
     return options;
