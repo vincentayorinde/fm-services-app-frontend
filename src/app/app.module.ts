@@ -13,6 +13,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { IonicStorageModule } from "@ionic/storage";
 import { PipesModule } from './pipes/pipes.module';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     SplashScreen,
     AuthServiceService,
     LocalNotifications,
+    Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

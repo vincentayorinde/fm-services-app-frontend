@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { Network } from '@ionic-native/network/ngx';
 
 @Component({
   selector: 'app-all-requests',
@@ -13,10 +14,23 @@ export class AllRequestsPage implements OnInit {
   public loader: any;
   public noData: any;
   toSearch = '';
-  constructor(public requestService: RequestService, public loadingController: LoadingController) {
+  constructor(
+    public requestService: RequestService, 
+    public loadingController: LoadingController, 
+    public network: Network,
+    private toastController: ToastController,
+    ) {
     this.getRequests();
     this.presentLoading();
-   }
+    this.network.onDisconnect().subscribe(() => {
+      this.presentToast("Network is disconnected", "light"); 
+    });
+    this.network.onConnect().subscribe(() => {
+      setTimeout(() => {
+        this.presentToast("Network is connected", "success");        
+      }, 2000)
+    });
+  }
     presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
@@ -50,6 +64,15 @@ export class AllRequestsPage implements OnInit {
   }
   search(event){
     this.toSearch = event.detail.value;
+  }
+  async presentToast(msg, status) {
+    let toast = await this.toastController.create({
+      message: msg,
+      duration: 4000,
+      position: "top",
+      color: status
+    });
+    toast.present();
   }
 
 }
