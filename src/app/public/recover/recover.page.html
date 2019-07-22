@@ -11,19 +11,16 @@
           <ion-input
             type="text"
             placeholder="Enter email"
-            [(ngModel)]="loginData.username"
+            [(ngModel)]="recoverData.email"
             required
           ></ion-input>
         </ion-item>
 
         <p></p>
-        <ion-button color="light" (click)="login()" expand="full"
+        <ion-button color="light" (click)="recover()" expand="full"
           >Recover</ion-button
         >
         <p></p>
-        <h5 style="text-align: center">
-          We'll send your password reset code
-        </h5>
       </ion-col>
     </ion-row>
   </ion-grid>

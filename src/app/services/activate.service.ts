@@ -8,16 +8,16 @@ let apiURL_dev = "http://localhost:8082/fm-services-api/public/index.php/api/aut
 @Injectable({
   providedIn: "root"
 })
-export class AuthServiceService {
+export class ActivateService {
   constructor(public http: Http) {}
 
-  postData(credentials, type) {
+  putData(credentials, type) {
     let headerType = "application/json; charset=UTF-8";
     let headers = new Headers({ "Content-Type": headerType });
     let options = new RequestOptions({ headers: headers });
 
     return this.http
-      .post(apiURL + type, JSON.stringify(credentials), options)
+      .put(apiURL + type, JSON.stringify(credentials), options)
       .pipe(map(res => res.json()));
   }
 }

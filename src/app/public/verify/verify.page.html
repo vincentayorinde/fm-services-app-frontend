@@ -1,9 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>verify</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
-</ion-content>
+    <p></p>
+    <p></p>
+    <ion-grid padding>
+      <ion-row color="primary" justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <div style="margin-bottom: 4rem"></div>
+          <ion-img class="ion-logo" src="/assets/logo.png"></ion-img>
+          <h5 style="text-align: center;">Please enter 6-digit code to Activate your account</h5>
+          <ion-item>
+            <ion-input
+              type="text"
+              placeholder="000000"
+              [(ngModel)]="activateData.code"
+              required
+            ></ion-input>
+          </ion-item>
+          <p></p>
+          <ion-button color="light" (click)="activate()" expand="full"
+            >Activate</ion-button
+          >
+          <p style="text-align: center">
+            Not registered yet?
+            <a routerLink="/register"> Register</a>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  
