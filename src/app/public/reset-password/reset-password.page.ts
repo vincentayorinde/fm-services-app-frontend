@@ -30,6 +30,7 @@ export class ResetPasswordPage implements OnInit {
     if (this.resetData.code !== '' && this.resetData.password !== '' && this.resetData.rpassword !== '') {
       if(  this.resetData.password ==  this.resetData.rpassword){
          //Api connections
+      this.presentLoading();
       this.currentUser = localStorage.getItem("userEmail");
       this.resetData.email = this.currentUser;
       delete this.resetData.rpassword;
@@ -37,15 +38,17 @@ export class ResetPasswordPage implements OnInit {
         result => {
           this.responseData = result;
           if (result) {
-                console.log(this.responseData);
+                this.loadingController.dismiss();
                 this.presentToast("Reset successful", "success");
                 this.router.navigate(["login"]);
                 localStorage.setItem("userData", JSON.stringify(this.responseData));
               } else {
+            this.loadingController.dismiss();
             this.presentToast("Invalid code","dark");
           }
         },
         err => {
+          this.loadingController.dismiss();
           this.presentToast("Invalid reset code","dark");
         }
       );
@@ -53,7 +56,7 @@ export class ResetPasswordPage implements OnInit {
       this.presentToast("Password does not match", "dark");
       }
     } else {
-      this.presentToast("Please check your input", "dark");
+      this.presentToast("All fields are required", "dark");
     }
   }
 

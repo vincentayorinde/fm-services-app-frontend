@@ -71,10 +71,10 @@ export class RequestPage implements OnInit {
   sendNotification() {
     this.localNotifications.schedule({
       id: 1,
-      title: 'Your Nofication',
+      title: 'New Request',
       text: 'FM Services Notification',
       trigger: { at: new Date(new Date().getTime() + 5 * 1000 )},
-      data: { mydata: 'This is the real notification content' },
+      data: { mydata: 'This is the request notification content' },
     });
   }
   request() {
@@ -104,7 +104,7 @@ export class RequestPage implements OnInit {
             this.sendNotification();
           } else {
             this.presentToast(
-              "Please give valid username and password",
+              "All fields are required",
               "dark"
             );
           }
@@ -115,7 +115,7 @@ export class RequestPage implements OnInit {
         }
       );
     } else {
-      this.presentToast("Give valid information.", "dark");
+      this.presentToast("All fields are required.", "dark");
     }
   }
 

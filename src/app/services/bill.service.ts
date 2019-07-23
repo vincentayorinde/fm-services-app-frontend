@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Headers, RequestOptions } from "@angular/http";
 import { map } from "rxjs/operators";
 
-let apiURL_prod = "https://ezybuygh.com/fm-s/public/index.php/api/bills";
+let apiURL_prod = "https://encrisoft.com/fm-s/public/index.php/api/bills";
 let apiURL = "http://192.168.64.2/fm-services-api/public/index.php/api/bills";
 
 @Injectable({

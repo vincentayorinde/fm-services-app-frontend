@@ -36,15 +36,16 @@ export class RecoverPage implements OnInit {
           if (this.responseData.userData) {
             localStorage.setItem("userEmail", this.responseData.userData);
               this.loadingController.dismiss();
-                console.log(this.responseData);
                 this.presentToast("Check email for recovery code", "success");
                 this.router.navigate(["reset-password"]);
                 localStorage.setItem("userData", JSON.stringify(this.responseData));
               } else {
+            this.loadingController.dismiss();
             this.presentToast("User not found","dark");
           }
         },
         err => {
+          this.loadingController.dismiss();
           this.presentToast("User not found","dark");
         }
       );

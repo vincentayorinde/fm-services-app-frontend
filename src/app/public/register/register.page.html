@@ -47,6 +47,15 @@
             [(ngModel)]="userData.password"
           ></ion-input>
         </ion-item>
+        <ion-item>
+            <ion-label position="stacked">Re-Type Password</ion-label>
+            <ion-input
+              type="password"
+              placeholder="Re-Enter Password"
+              value=""
+              [(ngModel)]="userData.rpassword"
+            ></ion-input>
+          </ion-item>
 
         <ion-button color="light" (click)="signup()" expand="block"
           >Create</ion-button

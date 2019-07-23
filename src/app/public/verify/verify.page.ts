@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { ToastController, AlertController } from "@ionic/angular";
+import { ToastController, AlertController, LoadingController } from "@ionic/angular";
 import { ActivateService } from "../../services/activate.service";
 
 @Component({
@@ -17,28 +17,40 @@ export class VerifyPage implements OnInit {
     public activateService: ActivateService,
     private toastController: ToastController,
     public alertController: AlertController,
-    private router: Router
+    private router: Router,
+    public loadingController: LoadingController
   ) {}
-
+  presentLoading =  async () =>  {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+   await loading.present();
+  }
   activate() {
     if (this.activateData.code) {
       this.currentUser = localStorage.getItem("activationEmail");
-      this.activateData.email = this.currentUser;
-      //Api connections
+      this.activateData = {
+        code: this.activateData.code,
+        email: this.currentUser
+      }
+      this.presentLoading();
       this.activateService.putData(this.activateData, "activate").subscribe(
         result => {
           this.responseData = result;
-          if (this.responseData) {
-                console.log(this.responseData);
+          console.log(this.responseData);
+          if (this.responseData.userData === "done") {
                 this.presentToast("Activation successful", "success");
                 this.router.navigate(["login"]);
                 localStorage.setItem("userData", JSON.stringify(this.responseData));
               } else {
-            this.presentToast("Activation code is invalid","light");
+            this.loadingController.dismiss();
+            this.presentToast("Activation code is invalid","dark");
           }
         },
         err => {
-          this.presentToast("Activation code is invalid","light");
+          this.loadingController.dismiss();
+          console.log('>>>>', err.message);
+          this.presentToast("Connection error, Please check internet","dark");
         }
       );
     } else {

@@ -15,6 +15,7 @@ export class RegisterPage implements OnInit {
   userData = {
     username: "",
     password: "",
+    rpassword: "",
     email: "",
     name: "",
     role: "customer"
@@ -34,38 +35,37 @@ export class RegisterPage implements OnInit {
    await loading.present();
   }
   signup() {
-    if (
-      this.userData.username &&
-      this.userData.password &&
-      this.userData.email &&
-      this.userData.name
-    ) {
-      //Api connections
+    if (this.userData.username && this.userData.password && this.userData.rpassword && this.userData.email && this.userData.name ) {
+      if( this.userData.password === this.userData.rpassword ){
       this.presentLoading();
       this.authServiceService.postData(this.userData, "signup").subscribe(
         result => {
           this.responseData = result;
-          if (this.responseData.userData) {
-            localStorage.setItem("activationEmail", this.responseData.userData.email);
+          if( !this.responseData.error ){
+            if (this.responseData.userData.token) {
+              localStorage.setItem("activationEmail", this.responseData.userData.email);
+              this.loadingController.dismiss();
+              this.router.navigate(["verify"]);
+              this.presentToast("Please, check email for activation code", "success");
+            } else {
+              this.loadingController.dismiss();
+              this.presentToast("Username or Email already exists","dark");
+            }
+          }else{
             this.loadingController.dismiss();
-            this.router.navigate(["verify"]);
-            // this.router.navigate(["login"]);
-            console.log(this.responseData);
-            this.presentToast("Please, check email for activation code", "success");
-          } else {
-            this.presentToast(
-              "Please give valid username and password",
-              "dark"
-            );
+            this.presentToast(this.responseData.error, "dark");
           }
         },
         err => {
-          console.log('>>>>>', err.message);
-          this.presentToast("Please check the data provided", "dark");
+          this.loadingController.dismiss();
+          this.presentToast("Coonection error, Please check internet", "dark");
         }
       );
+      } else {
+        this.presentToast("Passwords do not match", "dark");
+      }
     } else {
-      this.presentToast("Give valid information.", "dark");
+      this.presentToast("All fields are required", "dark");
     }
   }
  

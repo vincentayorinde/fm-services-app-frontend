@@ -35,7 +35,6 @@ export class LoginPage implements OnInit {
   login() {
     if (this.loginData.username && this.loginData.password) {
       //Api connections
-
       this.authServiceService.postData(this.loginData, "login").subscribe(
         result => {
           this.responseData = result;
@@ -60,17 +59,17 @@ export class LoginPage implements OnInit {
             }
           } else {
             this.presentToast(
-              "Please give valid username and password",
+              "Email or Password is Invalid",
               "dark"
             );
           }
         },
         err => {
-          this.presentToast("Please check the data provided", "dark");
+          this.presentToast("Server error, Please check internet", "dark");
         }
       );
     } else {
-      this.presentToast("Give valid information.", "dark");
+      this.presentToast("All fields are required", "dark");
     }
   }
 
