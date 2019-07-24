@@ -20,8 +20,9 @@
     </ion-fab-button>
   </ion-fab>
   <!-- List of Sliding Items -->
-  <ion-list>
-    <ion-item-sliding *ngFor="let data of AllUsers">
+  <ion-list *ngIf="AllUsers;else loader"> 
+      <ion-searchbar animated (ionChange)="search( $event )" placeholder="Enter user name"></ion-searchbar>
+    <ion-item-sliding *ngFor="let data of AllUsers | allUsersSearch: toSearch">
       <ion-item routerLink="/staffs/all-users/{{ data.id }}">
         <p>
           <small>Joined on {{ data.date_joined }}</small>
@@ -43,4 +44,5 @@
       </ion-item>
     </ion-item-sliding>
   </ion-list>
+  <h6 *ngIf="noData" style="text-align: center">{{ noData.message }}</h6>
 </ion-content>

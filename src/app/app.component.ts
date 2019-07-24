@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthServiceService } from './services/auth-service.service'
 import { Router } from '@angular/router';
+import { Network } from '@ionic-native/network/ngx';
 
 @Component({
   selector: 'app-root',
@@ -47,7 +48,9 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private AuthServiceService: AuthServiceService,
-    private router: Router
+    private router: Router,
+    public network: Network,
+    private toastController: ToastController
   ) {
     this.initializeApp();
     if(localStorage.getItem('userData')){
@@ -60,9 +63,25 @@ export class AppComponent {
           this.router.navigate(['login']);
         }
     }
+    this.network.onDisconnect().subscribe(() => {
+      this.presentToast("Network is disconnected", "light"); 
+    });
+    this.network.onConnect().subscribe(() => {
+      setTimeout(() => {
+        this.presentToast("Network is connected", "success");        
+      }, 2000)
+    });
   }
 
- 
+  async presentToast(msg, status) {
+    let toast = await this.toastController.create({
+      message: msg,
+      duration: 4000,
+      position: "top",
+      color: status
+    });
+    toast.present();
+  }
 
   initializeApp() {
     this.platform.ready().then(() => {

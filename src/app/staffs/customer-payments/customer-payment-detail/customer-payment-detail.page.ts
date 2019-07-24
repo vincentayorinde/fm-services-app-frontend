@@ -1,11 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { PaymentService } from "../../../services/payment.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import {
-  ToastController,
-  NavController,
-  AlertController
-} from "@ionic/angular";
+import { AlertController, LoadingController, ToastController } from "@ionic/angular";
+import { Network } from '@ionic-native/network/ngx';
 @Component({
   selector: "app-customer-payment-detail",
   templateUrl: "./customer-payment-detail.page.html",
@@ -21,15 +18,31 @@ export class CustomerPaymentDetailPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public alertController: AlertController,
-    private toastController: ToastController
+    private loadingController:LoadingController,  
+    public network: Network,
+    private toastController: ToastController,
   ) {
     this.adminUser = localStorage.getItem("userData");
     this.adminUser = JSON.parse(this.adminUser);
 
     console.log(this.adminUser);
     this.getPayment();
+    this.presentLoading();
+    this.network.onDisconnect().subscribe(() => {
+      this.presentToast("Network is disconnected", "light"); 
+    });
+    this.network.onConnect().subscribe(() => {
+      setTimeout(() => {
+        this.presentToast("Network is connected", "success");        
+      }, 2000)
+    });
   }
-
+  presentLoading =  async () =>  {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+   await loading.present();
+  }
   getPaymentID() {
     this.paymentId = this.route.snapshot.paramMap.get(
       "customer-payment-detail"
@@ -39,12 +52,13 @@ export class CustomerPaymentDetailPage implements OnInit {
   getPayment() {
     this.paymentService.getSinglePayment(this.getPaymentID()).subscribe(
       result => {
+        this.loadingController.dismiss();
         this.singlePaymentData = result[0];
-
         console.log(this.singlePaymentData);
       },
       err => {
-        console.log(err);
+        this.loadingController.dismiss();
+        this.presentToast("Connection error, Please check internet", "dark");
       }
     );
   }
@@ -53,16 +67,17 @@ export class CustomerPaymentDetailPage implements OnInit {
     approval: "Confirmed"
   };
   confirmPayment() {
-    console.log(this.updatePayment);
     this.paymentService
       .confirmPayment(this.getPaymentID(), this.updatePayment)
       .subscribe(
         result => {
+          this.loadingController.dismiss();
           this.router.navigate(["staffs", "staff-dashboard"]);
           this.presentAlert("Payment approved successfully!");
         },
         err => {
-          console.log(err);
+          this.loadingController.dismiss();
+          this.presentToast("Connection error, Please check internet", "dark");
         }
       );
   }
@@ -81,6 +96,15 @@ export class CustomerPaymentDetailPage implements OnInit {
     });
 
     await alert.present();
+  }
+  async presentToast(msg, status) {
+    let toast = await this.toastController.create({
+      message: msg,
+      duration: 4000,
+      position: "top",
+      color: status
+    });
+    toast.present();
   }
   ngOnInit() {}
 }

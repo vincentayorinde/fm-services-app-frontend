@@ -9,8 +9,9 @@
 
 <ion-content>
   <!-- List of Sliding Items -->
-  <ion-list>
-    <ion-item-sliding *ngFor="let data of AllPayments">
+  <ion-list *ngIf="AllPayments;else loader"> 
+      <ion-searchbar animated (ionChange)="search( $event )" placeholder="Request name"></ion-searchbar>
+    <ion-item-sliding *ngFor="let data of AllPayments | adminPaymentSearch: toSearch">
       <ion-item
         *ngIf="data.approval == 'Confirmed'"
         routerLink="/staffs/customer-payments/{{ data.id }}"
@@ -60,4 +61,5 @@
       </ion-item>
     </ion-item-sliding>
   </ion-list>
+  <h6 *ngIf="noData" style="text-align: center">{{ noData.message }}</h6>
 </ion-content>

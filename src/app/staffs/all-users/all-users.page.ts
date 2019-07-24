@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UsersService } from "../../services/users.service";
+import { LoadingController, ToastController } from "@ionic/angular";
 
 @Component({
   selector: "app-all-users",
@@ -8,23 +9,34 @@ import { UsersService } from "../../services/users.service";
 })
 export class AllUsersPage implements OnInit {
   public AllUsers: any;
-
-  constructor(public usersService: UsersService) {
+  public noData: any;
+  toSearch = '';
+  constructor(public usersService: UsersService, public loadingController :LoadingController,
+    private toastController: ToastController) {
     this.getAllUsers();
-    // localStorage.removeItem("singleUserData");
   }
-
   getAllUsers() {
-    this.usersService.getAllUsers().subscribe(
-      result => {
-        console.log(result);
+    this.usersService.getAllUsers().subscribe((result) => {
+      if(result){
         this.AllUsers = result;
-      },
-      err => {
-        console.log(err);
+      }else{
+         this.noData = {"message":"No data yet"};
       }
-    );
+    }, (err) => {
+      this.presentToast("Connection error, Please check internet", "dark");
+    })
   }
-
+  search(event){
+    this.toSearch = event.detail.value;
+  }
+  async presentToast(msg, status) {
+    let toast = await this.toastController.create({
+      message: msg,
+      duration: 4000,
+      position: "top",
+      color: status
+    });
+    toast.present();
+  }
   ngOnInit() {}
 }
