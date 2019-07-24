@@ -39,6 +39,7 @@ export class VerifyPage implements OnInit {
           this.responseData = result;
           console.log(this.responseData);
           if (this.responseData.userData === "done") {
+                this.loadingController.dismiss();
                 this.presentToast("Activation successful", "success");
                 this.router.navigate(["login"]);
                 localStorage.setItem("userData", JSON.stringify(this.responseData));

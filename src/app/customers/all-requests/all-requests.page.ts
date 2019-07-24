@@ -10,8 +10,7 @@ import { Network } from '@ionic-native/network/ngx';
 }) 
 export class AllRequestsPage implements OnInit {
   userID: number;
-  public AllRequestsData : any; 
-  public loader: any;
+  public AllRequestsData : any;
   public noData: any;
   toSearch = '';
   constructor(
@@ -31,12 +30,11 @@ export class AllRequestsPage implements OnInit {
       }, 2000)
     });
   }
-    presentLoading =  async () =>  {
+  presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
-      duration: 2000
     });
-    this.loader = await loading.present();
+   await loading.present();
   }
 
  
@@ -49,12 +47,15 @@ export class AllRequestsPage implements OnInit {
   getRequests(){
     this.requestService.getRequests(this.getUserID()).subscribe((result) => {
       if(result.length > 0){
+        this.loadingController.dismiss();
         this.AllRequestsData = result;
       }else{
+        this.loadingController.dismiss();
          this.noData = {"message":"No data yet"};
       }
     }, (err) => {
-      console.log(err);
+      this.loadingController.dismiss();
+      this.presentToast("Coonection error, Please check internet", "dark");
     })
   }
   ionViewWillEnter(){

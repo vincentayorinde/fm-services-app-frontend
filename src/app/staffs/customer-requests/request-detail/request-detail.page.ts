@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RequestService } from "../../../services/request.service";
-import { AlertController } from "@ionic/angular";
+import { AlertController, LoadingController, ToastController } from "@ionic/angular";
+import { Network } from '@ionic-native/network/ngx';
 
 @Component({
   selector: "app-request-detail",
@@ -20,13 +21,30 @@ export class RequestDetailPage implements OnInit {
     public requestService: RequestService,
     private route: ActivatedRoute,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingController:LoadingController,  
+    public network: Network,
+    private toastController: ToastController,
   ) {
     this.getRequest();
     this.getRequestID();
     this.getRequestForBillID();
+    this.presentLoading();
+    this.network.onDisconnect().subscribe(() => {
+      this.presentToast("Network is disconnected", "light"); 
+    });
+    this.network.onConnect().subscribe(() => {
+      setTimeout(() => {
+        this.presentToast("Network is connected", "success");        
+      }, 2000)
+    });
   }
-
+  presentLoading =  async () =>  {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+   await loading.present();
+  }
   getRequestID() {
     this.requestId = this.route.snapshot.paramMap.get("request-detail");
     return this.requestId;
@@ -47,11 +65,12 @@ export class RequestDetailPage implements OnInit {
   getRequest() {
     this.requestService.getSingleRequest(this.getRequestID()).subscribe(
       result => {
-        console.log(result);
+        this.loadingController.dismiss();
         this.singleRequestData = result[0];
       },
       err => {
-        console.log(err);
+        this.loadingController.dismiss();
+        this.presentToast("Connection error, Please check internet", "dark");
       }
     );
   }
@@ -65,30 +84,34 @@ export class RequestDetailPage implements OnInit {
   };
 
   startJob() {
-    console.log(this.updateData);
+    this.presentLoading();
     this.requestService
       .updateRequestStatus(this.getRequestID(), this.updateData)
       .subscribe(
         result => {
+          this.loadingController.dismiss();
           this.router.navigate(["staffs", "staff-dashboard"]);
           this.presentAlert("Job started successfully!");
         },
         err => {
-          console.log(err);
+          this.loadingController.dismiss();
+          this.presentToast("Connection error, Please check internet", "dark");
         }
       );
   }
   endJob() {
-    console.log(this.endData);
+    this.presentLoading();
     this.requestService
       .endRequestStatus(this.getRequestID(), this.endData)
       .subscribe(
         result => {
+          this.loadingController.dismiss();
           this.router.navigate(["staffs", "staff-dashboard"]);
           this.presentAlert("Job Completed!");
         },
         err => {
-          console.log(err);
+          this.loadingController.dismiss();
+          this.presentToast("Connection error, Please check internet", "dark");
         }
       );
   }
@@ -107,6 +130,15 @@ export class RequestDetailPage implements OnInit {
     });
 
     await alert.present();
+  }
+  async presentToast(msg, status) {
+    let toast = await this.toastController.create({
+      message: msg,
+      duration: 4000,
+      position: "top",
+      color: status
+    });
+    toast.present();
   }
   generateBill() {}
 

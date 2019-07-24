@@ -9,9 +9,9 @@
 
 <ion-content>
         <!-- List of Sliding Items -->
-<ion-list>
-
-    <ion-item-sliding *ngFor="let data of AllServiceRequests">
+<ion-list *ngIf="AllServiceRequests;else loader"> 
+   <ion-searchbar animated (ionChange)="search( $event )" placeholder="Request name"></ion-searchbar>
+    <ion-item-sliding *ngFor="let data of AllServiceRequests | adminRequestSearch: toSearch">
         <ion-item *ngIf="data.status == 'Not Started'" routerLink='/staffs/customer-request/{{ data.id }}'>
           <p>
             <small>Requested on {{  data.date_added }}</small>
@@ -45,4 +45,5 @@
       </ion-item-sliding>    
      
   </ion-list>
+  <h6 *ngIf="noData" style="text-align: center">{{ noData.message }}</h6>
 </ion-content>

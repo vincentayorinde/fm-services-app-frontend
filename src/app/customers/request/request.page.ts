@@ -3,7 +3,8 @@ import {
   ToastController,
   NavController,
   AlertController,
-  Platform
+  Platform,
+  LoadingController
 } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { RequestService } from "../../services/request.service";
@@ -27,18 +28,14 @@ export class RequestPage implements OnInit {
     private navCtrl: NavController,
     private router: Router,
     private localNotifications: LocalNotifications,
-    private plt: Platform
-  ) {
-    // this.plt.ready().then((rdy) => {
-    //   this.localNotifications.on('click', (notification, state) => {
-    //     let json = JSON.parse(notification.data)
-    //     let alert = this.alertController.create({
-    //       title: notification.title,
-    //       subTitle: json.mydata
-    //     });
-    //     alert.present();
-    //   });
-    // });
+    private plt: Platform,
+    public loadingController: LoadingController
+  ) {}
+  presentLoading =  async () =>  {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+   await loading.present();
   }
   getUserID() {
     const data = JSON.parse(localStorage.getItem("userData"));
@@ -93,28 +90,29 @@ export class RequestPage implements OnInit {
       this.requestData.region &&
       this.requestData.status
     ) {
+      this.presentLoading();
       this.requestService.postRequest(this.requestData).subscribe(
         result => {
           this.serviceResponseData = result;
           if (this.serviceResponseData.requestData) {
+            this.loadingController.dismiss();
             console.log(this.serviceResponseData);
-
             this.router.navigate(["customers", "dashboard"]);
             this.presentAlert("Request as be placed, We'll call you shortly");
             this.sendNotification();
           } else {
-            this.presentToast(
-              "All fields are required",
-              "dark"
-            );
+            this.loadingController.dismiss();
+            this.presentToast("All fields are required", "dark");
           }
         },
         err => {
-          console.log(err);
+          this.loadingController.dismiss();
+          console.log('the error >>>', err.message);
           this.presentToast("Please check the data provided", "dark");
         }
       );
     } else {
+      console.log('the data >>>', this.requestData);
       this.presentToast("All fields are required.", "dark");
     }
   }

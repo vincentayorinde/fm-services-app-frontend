@@ -18,60 +18,126 @@
           ><strong>{{ singleRequestData.user_name }}</strong></small
         >
       </ion-col>
-      <ion-col id="date" size="4">
-        <div>
-          <small>{{ singleRequestData.date_added }}</small>
-        </div>
-      </ion-col>
+      <ion-col size="4">
+          <p class="date">Requested on <br>
+            {{ singleRequestData.date_added }}
+          </p>
+         </ion-col>
     </ion-row>
-    <ion-row class="body">
-      <ion-col class="rec-title" size="4">
-        <small>Service Type: </small><br />
-        <small>Service Desc:</small><br />
-        <small>House No: </small><br />
-        <small>Area: </small><br />
-        <small>Landmark: </small><br />
-        <small>Digital Address: </small><br />
-        <small>City: </small><br />
-        <small>Region: </small><br />
-        <small>Customer Start Date:</small><br />
-        <small>Customer End Date: </small><br />
-        <small>Status:</small><br />
-        <small>Admin started on:</small><br />
-        <small>Admin ended on:</small><br />
-        <small>Served by:</small><br />
-      </ion-col>
-      <ion-col class="rec-title" id="date" size="8">
-        <small>{{ singleRequestData.service_type }}</small
-        ><br />
-        <small> {{ singleRequestData.service_desc }} </small><br />
-        <small> {{ singleRequestData.house_no }}</small
-        ><br />
-        <small> {{ singleRequestData.house_area }}</small
-        ><br />
-        <small> {{ singleRequestData.house_landmark }}</small
-        ><br />
-        <small> {{ singleRequestData.digital_address }}</small
-        ><br />
-        <small> {{ singleRequestData.city }}</small
-        ><br />
-        <small> {{ singleRequestData.region }}</small
-        ><br />
-        <small> {{ singleRequestData.start_date }}</small
-        ><br />
-        <small> {{ singleRequestData.end_date }}</small
-        ><br />
-        <small> {{ singleRequestData.status }}</small
-        ><br />
-        <small> {{ singleRequestData.admin_started_at }}</small
-        ><br />
-        <small> {{ singleRequestData.admin_ended_at }}</small
-        ><br />
-        <small> {{ singleRequestData.served_by }}</small
-        ><br />
-      </ion-col>
+    <div class="body">
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Service Type </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.service_type }}</small>
+        </ion-col>
     </ion-row>
-    <hr />
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Service Desc </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.service_desc }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">House No </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.house_no }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Area </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.house_area }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Landmark </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.house_landmark }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Digital Address </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.digital_address }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">City </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.city }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Region </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.region }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Customer Start Date </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.start_date }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Customer End Date </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.end_date }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Status </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.status }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Admin started on </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.admin_started_at }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Admin ended on</small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.admin_ended_at }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Served by</small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.served_by }}</small>
+        </ion-col>
+    </ion-row>
+    </div>
     <ion-row class="">
       <ion-col class="" size="6">
         <ion-button

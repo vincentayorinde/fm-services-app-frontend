@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { ToastController, AlertController } from "@ionic/angular";
+import { ToastController, AlertController, LoadingController } from "@ionic/angular";
 import { AuthServiceService } from "../../services/auth-service.service";
 
 @Component({
@@ -17,7 +17,8 @@ export class LoginPage implements OnInit {
     public authServiceService: AuthServiceService,
     private toastController: ToastController,
     public alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private loadingController: LoadingController
   ) {
     if (localStorage.getItem("userData")) {
       this.currentUser = JSON.parse(localStorage.getItem("userData"));
@@ -31,23 +32,32 @@ export class LoginPage implements OnInit {
       }
     }
   }
-
+  presentLoading =  async () =>  {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+   await loading.present();
+  }
   login() {
     if (this.loginData.username && this.loginData.password) {
       //Api connections
+      this.presentLoading();
       this.authServiceService.postData(this.loginData, "login").subscribe(
         result => {
           this.responseData = result;
           if (this.responseData.userData) {
+          this.loadingController.dismiss();
             if (this.responseData.userData.isSuspended === "1") {
               this.presentAlert("Your account has been suspended");
             } else {
+              this.loadingController.dismiss();
               if (this.responseData.userData.role == "customer") {
                 this.router.navigate(["customers", "dashboard"]);
               } else if (
                 this.responseData.userData.role == "staff" ||
                 this.responseData.userData.role == "admin"
               ) {
+                
                 this.router.navigate(["staffs", "staff-dashboard"]);
               }
               console.log(this.responseData);
@@ -58,6 +68,7 @@ export class LoginPage implements OnInit {
               this.presentToast("Login successful", "success");
             }
           } else {
+          this.loadingController.dismiss();
             this.presentToast(
               "Email or Password is Invalid",
               "dark"
@@ -65,6 +76,7 @@ export class LoginPage implements OnInit {
           }
         },
         err => {
+          this.loadingController.dismiss();
           this.presentToast("Server error, Please check internet", "dark");
         }
       );

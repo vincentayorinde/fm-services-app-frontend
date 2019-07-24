@@ -1,25 +1,26 @@
-.top-card{
-  background-color: orange;
-}
 
 .header {
-  background-color: #f7c830;
+  background-color: #f4f5f8;
   padding: 12px 5px 8px 9px;
   border-radius: 20px;
   margin-bottom: 5px;
 }
-
-#date {
-  padding-top: 10px;
+.left-col{
+  border-bottom: #f52d2d solid 1px;
+  font-size: 0.9rem;
+  background-color: #dbdbdb;
 }
-.rec-title{
-  padding-left: 10px;
+small{
+  font-size: 0.9rem;
 }
-hr{
-  border-top: solid 1px gray;
+.date {
+  font-size: 0.6rem;
 }
 .body{
-  background-color: lightblue;
-  padding: 12px 5px 8px 9px;
+  background-color: #f7f7f7;
+  border-top: 3px solid crimson;
   border-radius: 20px;
+  border-bottom: 3px solid crimson;
+  padding: 4px 1px 4px 4px;
+  line-height: 1.2rem;
 }

@@ -11,45 +11,105 @@
   <ion-grid>
       <ion-row class="header">
         <ion-col size="8">
-          <strong>Customer Name</strong> <br>
+          <strong>Customer Name</strong><br>
           <small><strong>{{ userDetails.name }}</strong></small>
         </ion-col>
-        <ion-col id="date" size="4">
-          <div>
-            <small>{{ singleRequestData.date_added }}</small>
-          </div>
+        <ion-col size="4">
+          <p class="date">Requested on <br>
+            {{ singleRequestData.date_added }}
+          </p>
          </ion-col>
       </ion-row>
-      <ion-row class="body">
-          <ion-col class="rec-title" size="5">
-           <small>Service Type: </small><br>
-           <small>Service Desc:</small><br>
-           <small>House No: </small><br>
-           <small>Area: </small><br>
-           <small>Landmark: </small><br>
-           <small>Digital Address: </small><br>
-           <small>City: </small><br>
-           <small>Region: </small><br>
-           <small>Customer Start Date:</small><br>
-           <small>Customer End Date: </small><br>
-           <small>Status:</small><br>
-          </ion-col>
-          <ion-col class="rec-title" id="date" size="7">
-              <small>{{  singleRequestData.service_type }}</small><br>
-              <small> {{ singleRequestData.service_desc }} </small><br>
-              <small> {{ singleRequestData.house_no }}</small><br>
-              <small> {{ singleRequestData.house_area}}</small><br>
-              <small> {{ singleRequestData.house_landmark}}</small><br>
-              <small> {{ singleRequestData.digital_address}}</small><br>
-              <small> {{ singleRequestData.city }}</small><br>
-              <small> {{ singleRequestData.region }}</small><br>
-              <small> {{ singleRequestData.start_date }}</small><br>
-              <small> {{ singleRequestData.end_date }}</small><br>
-              <small> {{ singleRequestData.status }}</small><br>
-           </ion-col>
-        </ion-row>
-        <hr>
-        <p></p>
+      <div class="body">
+          <ion-row>
+              <ion-col size="4">
+              <small class="left-col" >Type </small>
+              </ion-col>
+              <ion-col class="" size="8">
+                  <small> {{ singleRequestData.service_type }} </small>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="4">
+              <small class="left-col">Description </small>
+              </ion-col>
+              <ion-col class="" size="8">
+                  <small> {{ singleRequestData.service_desc }} </small>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="4">
+              <small class="left-col">House No </small>
+              </ion-col>
+              <ion-col class="" size="8">
+                  <small> {{ singleRequestData.house_no }} </small>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="4">
+              <small class="left-col"> Area </small>
+              </ion-col>
+              <ion-col class="" size="8">
+                  <small> {{ singleRequestData.house_area }} </small>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="4">
+              <small class="left-col"> Landmark </small>
+              </ion-col>
+              <ion-col class="" size="8">
+                  <small> {{ singleRequestData.house_landmark }} </small>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="4">
+              <small class="left-col"> Digital Address </small>
+              </ion-col>
+              <ion-col class="" size="8">
+                  <small> {{ singleRequestData.digital_address }} </small>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="4">
+              <small class="left-col"> City </small>
+              </ion-col>
+              <ion-col class="" size="8">
+                  <small> {{ singleRequestData.city }} </small>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="4">
+              <small class="left-col"> Region </small>
+              </ion-col>
+              <ion-col class="" size="8">
+                  <small> {{ singleRequestData.region }} </small>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="4">
+              <small class="left-col"> Your Start Date </small>
+              </ion-col>
+              <ion-col class="" size="8">
+                  <small> {{ singleRequestData.start_date }} </small>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="4">
+              <small class="left-col"> Your End Date </small>
+              </ion-col>
+              <ion-col class="" size="8">
+                  <small> {{ singleRequestData.end_date }} </small>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="4">
+              <small class="left-col"> Status </small>
+              </ion-col>
+              <ion-col class="" size="8">
+                  <small> {{ singleRequestData.status }} </small>
+              </ion-col>
+          </ion-row>
+        </div>
         <ion-button  *ngIf="singleRequestData.bill_generated_at !== null" color="light" routerLink='/customers/bills/{{  singleRequestBillData.request_id }}' expand="block">View Bill</ion-button>
         <ion-button  *ngIf="singleRequestData.bill_generated_at == null" color="light" disabled expand="block">No Blll Yet</ion-button>
         <p></p>
