@@ -19,7 +19,7 @@ export class UserDetailPage implements OnInit {
   date_joined: any;
   isSuspended: boolean;
   isDeleted: any;
-
+  deleteUser;
   constructor(
     public usersService: UsersService,
     private route: ActivatedRoute,

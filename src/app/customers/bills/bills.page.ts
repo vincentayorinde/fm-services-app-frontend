@@ -11,6 +11,7 @@ export class BillsPage implements OnInit {
   userID: number;
   public noData: any;
   toSearch = '';
+  loader = '';
   public AllBillsData : any;
   constructor(public billService: BillService,  private loadingController: LoadingController, private toastController: ToastController) {
     this.getBills();

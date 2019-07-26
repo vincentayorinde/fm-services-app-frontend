@@ -18,6 +18,8 @@ export class CreateBillPage implements OnInit {
   public billData : any;
   requestId: any;
   public singleRequestData: any;
+  customDayShortNames;
+  controls;
 
   constructor(
     public requestService: RequestService,

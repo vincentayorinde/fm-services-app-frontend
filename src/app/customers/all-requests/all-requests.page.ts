@@ -13,6 +13,7 @@ export class AllRequestsPage implements OnInit {
   public AllRequestsData : any;
   public noData: any;
   toSearch = '';
+  loader = '';
   constructor(
     public requestService: RequestService, 
     public loadingController: LoadingController, 

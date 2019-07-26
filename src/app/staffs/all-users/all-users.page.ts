@@ -11,6 +11,7 @@ export class AllUsersPage implements OnInit {
   public AllUsers: any;
   public noData: any;
   toSearch = '';
+  loader;
   constructor(public usersService: UsersService, public loadingController :LoadingController,
     private toastController: ToastController) {
     this.getAllUsers();

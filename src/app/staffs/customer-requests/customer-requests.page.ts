@@ -13,6 +13,7 @@ export class CustomerRequestsPage implements OnInit {
   public AllServiceRequests : any; 
   public noData: any;
   toSearch = '';
+  loader;
   constructor(public requestService: RequestService, private loadingController:LoadingController,  public network: Network,
     private toastController: ToastController,) {
     this.getAllRequests();

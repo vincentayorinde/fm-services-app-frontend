@@ -12,6 +12,7 @@ export class PaymentsPage implements OnInit {
   public AllPaymentsData : any; 
   public noData: any;
   toSearch = '';
+  loader;
 
   constructor(public paymentService: PaymentService, private loadingController: LoadingController, private toastController: ToastController) {
     this.getPayments(); 

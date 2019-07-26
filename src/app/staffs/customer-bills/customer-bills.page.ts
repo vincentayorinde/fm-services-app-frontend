@@ -10,6 +10,7 @@ import { Network } from '@ionic-native/network/ngx';
 export class CustomerBillsPage implements OnInit {
   public AllBills: any;
   public noData: any;
+  loader;
   toSearch = '';
   constructor(public billService: BillService, private loadingController:LoadingController,  public network: Network,
     private toastController: ToastController) {

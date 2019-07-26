@@ -40,7 +40,7 @@
                           existing fields -->
                      <section
                         [formGroupName]="i"
-                        *ngFor="let item of form.controls.billItems.controls; let i = index">
+                        *ngFor="let item of form.controls.billItems['controls']; let i = index">
                         <ion-item-group>
                             <ion-item-divider color="light">Item #{{ i + 1 }}</ion-item-divider>
                            <ion-item>

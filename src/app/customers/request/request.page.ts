@@ -20,6 +20,7 @@ export class RequestPage implements OnInit {
   userData: any;
   toast: any;
   serviceResponseData: any;
+  customDayShortNames: '';
 
   constructor(
     public alertController: AlertController,
