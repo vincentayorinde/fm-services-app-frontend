@@ -17,14 +17,7 @@ export class CustomerRequestsPage implements OnInit {
     private toastController: ToastController,) {
     this.getAllRequests();
     this.presentLoading();
-    this.network.onDisconnect().subscribe(() => {
-      this.presentToast("Network is disconnected", "light"); 
-    });
-    this.network.onConnect().subscribe(() => {
-      setTimeout(() => {
-        this.presentToast("Network is connected", "success");        
-      }, 2000)
-    });
+
    }
    presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
@@ -50,7 +43,7 @@ export class CustomerRequestsPage implements OnInit {
   }, (err) => {
     this.loadingController.dismiss();
     this.presentToast("Connection error, Please check internet", "dark");
-  })
+  });
   }
   search(event){
     this.toSearch = event.detail.value;

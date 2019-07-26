@@ -88,6 +88,7 @@ export class CreateBillPage implements OnInit {
           "due_date": val.due_date,
           "user_id": this.singleRequestData.user_id,
           "user_name": this.singleRequestData.user_name,
+          "user_email": this.singleRequestData.user_email,
           "request_id": this.getRequestID(),
           "served_by": this.getAdminUserName()
         }

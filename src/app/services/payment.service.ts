@@ -44,10 +44,7 @@ export class PaymentService {
   // updatePayment
   confirmPayment(paymentId, updateValue) {
     let updateOptions = this.setHeaders();
-    return this.http.put(
-      apiURL + /update/ + paymentId,
-      JSON.stringify(updateValue),
-      updateOptions
-    );
+    return this.http.put(apiURL + /update/ + paymentId, JSON.stringify(updateValue), updateOptions)
+    // .pipe(map(res => res.json()));
   }
 }

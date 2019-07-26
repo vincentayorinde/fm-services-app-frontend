@@ -17,20 +17,17 @@ export class PreviewBillPage implements OnInit {
 
   constructor(public billService: BillService, public requestService: RequestService, private route: ActivatedRoute, private router: Router,  public alertController: AlertController, private toastController: ToastController,) {
     
-    const data = JSON.parse(localStorage.getItem('billData'));
     const sub_total = JSON.parse(localStorage.getItem('sub_total'));
-    this.billData = data;
     this.subtotal = sub_total;
     this.getRequest();
-    console.log(this.billData);
 
   }
   
   ngOnInit() {
   }
   getRequest(){
+    this.billData = JSON.parse(localStorage.getItem('billData'));
     this.requestService.getSingleRequest(this.billData.request_id).subscribe((result) => {
-      console.log('+++++++++++++++++++', result);
       this.singleRequestData = result[0];
     }, (err) => {
       console.log(err);
@@ -39,8 +36,9 @@ export class PreviewBillPage implements OnInit {
 
    sendToCustomer() {
     if(this.billData){
+      this.billData = JSON.parse(localStorage.getItem('billData'));
 
-        console.log(this.billData);
+        console.log('the bill data', this.billData);
          this.billService.postBill(this.billData).subscribe((result) => {
 
           this.billData = result;

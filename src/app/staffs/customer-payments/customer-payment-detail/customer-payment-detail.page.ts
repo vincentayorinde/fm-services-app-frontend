@@ -13,6 +13,7 @@ export class CustomerPaymentDetailPage implements OnInit {
   public singlePaymentData: any;
   public paymentMade: any;
   public adminUser: any;
+  public updatePayment: object;
   constructor(
     public paymentService: PaymentService,
     private route: ActivatedRoute,
@@ -28,14 +29,7 @@ export class CustomerPaymentDetailPage implements OnInit {
     console.log(this.adminUser);
     this.getPayment();
     this.presentLoading();
-    this.network.onDisconnect().subscribe(() => {
-      this.presentToast("Network is disconnected", "light"); 
-    });
-    this.network.onConnect().subscribe(() => {
-      setTimeout(() => {
-        this.presentToast("Network is connected", "success");        
-      }, 2000)
-    });
+ 
   }
   presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
@@ -55,6 +49,9 @@ export class CustomerPaymentDetailPage implements OnInit {
         this.loadingController.dismiss();
         this.singlePaymentData = result[0];
         console.log(this.singlePaymentData);
+        if(this.singlePaymentData){
+          return this.singlePaymentData;
+        }
       },
       err => {
         this.loadingController.dismiss();
@@ -63,17 +60,29 @@ export class CustomerPaymentDetailPage implements OnInit {
     );
   }
 
-  updatePayment = {
-    approval: "Confirmed"
-  };
+  
   confirmPayment() {
+  this.updatePayment = {
+    approval: "Confirmed",
+    user_email: this.singlePaymentData.user_email,
+    user_name: this.singlePaymentData.user_name,
+    amount: this.singlePaymentData.amount,
+    service_type: this.singlePaymentData.service_type,
+    payment_method: 'Mobile Money',
+    paid_at: this.singlePaymentData.paid_at,
+  };
     this.paymentService
       .confirmPayment(this.getPaymentID(), this.updatePayment)
       .subscribe(
         result => {
-          this.loadingController.dismiss();
-          this.router.navigate(["staffs", "staff-dashboard"]);
-          this.presentAlert("Payment approved successfully!");
+          if(result){
+            this.loadingController.dismiss();
+            this.presentAlert("Payment approved successfully!");
+            this.router.navigate(["staffs", "staff-dashboard"]);
+          }else{
+            this.loadingController.dismiss();
+            this.presentToast("Connection error, Please check internet", "dark");
+          }
         },
         err => {
           this.loadingController.dismiss();

@@ -26,6 +26,9 @@ export class BillDetailPage implements OnInit {
   userName: any;
   userId: any;
   public service_type;
+  paymentMethod: any;
+  public payment:any;
+  public paymentData:any;
 
   constructor(
     public alertController: AlertController,
@@ -90,12 +93,11 @@ export class BillDetailPage implements OnInit {
     });
   }
 
-  paymentData = {
-    user_name: this.getUserName(),
-    payment_method: ""
-  };
+  
+ 
 
   payBill() {
+    
     this.getBillforPayment = JSON.parse(
       localStorage.getItem("billDataPayment")
     );
@@ -107,19 +109,16 @@ export class BillDetailPage implements OnInit {
     delete this.getBillforPayment.served_by;
     delete this.getBillforPayment.status;
     delete this.getBillforPayment.request_id;
-
-    // this.presentAlert(
-    //   "Momo No. 0540001112 - Name: FM Services - Use bill no as Ref "
-    // );
-
-    this.paymentService.postPayment(this.getBillforPayment).subscribe(
+    this.paymentData = {
+      ...this.getBillforPayment,
+      payment_method: this.paymentMethod
+    };
+    this.paymentService.postPayment(this.paymentData).subscribe(
       result => {
         this.paymentResponseData = result;
         console.log(this.paymentResponseData);
         this.router.navigate(["customers", "dashboard"]);
-        this.presentAlert(
-          "Momo No. 0540001112 - Name: FM Services - Use bill no as Ref "
-        );
+        this.presentAlert("Go to Menu -> Payment Instruction, to see how to pay");
       },
       err => {
         console.log(err);
@@ -131,7 +130,7 @@ export class BillDetailPage implements OnInit {
 
   async presentAlert(msg) {
     const alert = await this.alertController.create({
-      header: "Send Momo to",
+      header: "Payment Instruction",
       message: msg,
       buttons: [
         {

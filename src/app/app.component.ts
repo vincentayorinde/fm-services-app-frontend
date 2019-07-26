@@ -23,19 +23,9 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'All Requests',
-      url: '/customers/all-requests',
-      icon: 'build'
-    },
-    {
-      title: 'Settings',
-      url: '/list',
-      icon: 'settings'
-    },
-    {
-      title: 'Learn more',
-      url: '/list',
-      icon: 'help-circle'
+      title: 'Payment Instruction',
+      url: '/instruction',
+      icon: 'cash'
     },
     {
       title: 'Log out',

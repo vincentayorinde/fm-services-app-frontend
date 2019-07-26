@@ -20,14 +20,6 @@ export class CustomerBillDetailPage implements OnInit {
     private toastController: ToastController) { 
     this.getBill();
     this.presentLoading();
-    this.network.onDisconnect().subscribe(() => {
-      this.presentToast("Network is disconnected", "light"); 
-    });
-    this.network.onConnect().subscribe(() => {
-      setTimeout(() => {
-        this.presentToast("Network is connected", "success");        
-      }, 2000)
-    });
   }
 
   getBillID(){

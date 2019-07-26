@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'staffs', loadChildren: './staffs/staff-routing.module#StaffRoutingModule' },
   { path: 'recover', loadChildren: './public/recover/recover.module#RecoverPageModule' },
   { path: 'reset-password', loadChildren: './public/reset-password/reset-password.module#ResetPasswordPageModule' },
-  { path: 'verify', loadChildren: './public/verify/verify.module#VerifyPageModule' }
+  { path: 'verify', loadChildren: './public/verify/verify.module#VerifyPageModule' },
+  { path: 'instruction', loadChildren: './public/instruction/instruction.module#InstructionPageModule' }
 ];
 
 @NgModule({

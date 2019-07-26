@@ -17,7 +17,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 })
 export class RequestPage implements OnInit {
   userID: number;
-  userName: any;
+  userData: any;
   toast: any;
   serviceResponseData: any;
 
@@ -37,20 +37,21 @@ export class RequestPage implements OnInit {
     });
    await loading.present();
   }
-  getUserID() {
+  // getUserID() {
+  //   const data = JSON.parse(localStorage.getItem("userData"));
+  //   this.userID = data.userData.id;
+  //   return this.userID;
+  // }
+  getUserData() {
     const data = JSON.parse(localStorage.getItem("userData"));
-    this.userID = data.userData.id;
-    return this.userID;
-  }
-  getUserName() {
-    const data = JSON.parse(localStorage.getItem("userData"));
-    this.userName = data.userData.name;
-    return this.userName;
+    this.userData = data.userData;
+    return this.userData;
   }
 
   requestData = {
-    user_id: this.getUserID(),
-    user_name: this.getUserName(),
+    user_id: this.getUserData().id,
+    user_name: this.getUserData().name,
+    user_email: this.getUserData().email,
     service_type: "",
     service_priority: "",
     service_desc: "",
@@ -65,15 +66,15 @@ export class RequestPage implements OnInit {
     region: "",
     status: "Not Started"
   };
-  sendNotification() {
-    this.localNotifications.schedule({
-      id: 1,
-      title: 'New Request',
-      text: 'FM Services Notification',
-      trigger: { at: new Date(new Date().getTime() + 5 * 1000 )},
-      data: { mydata: 'This is the request notification content' },
-    });
-  }
+  // sendNotification() {
+  //   this.localNotifications.schedule({
+  //     id: 1,
+  //     title: 'New Request',
+  //     text: 'FM Services Notification',
+  //     trigger: { at: new Date(new Date().getTime() + 5 * 1000 )},
+  //     data: { mydata: 'This is the request notification content' },
+  //   });
+  // }
   request() {
     if (
       this.requestData.service_type &&
@@ -91,6 +92,7 @@ export class RequestPage implements OnInit {
       this.requestData.status
     ) {
       this.presentLoading();
+      console.log('>>> req data', this.requestData);
       this.requestService.postRequest(this.requestData).subscribe(
         result => {
           this.serviceResponseData = result;
@@ -99,7 +101,7 @@ export class RequestPage implements OnInit {
             console.log(this.serviceResponseData);
             this.router.navigate(["customers", "dashboard"]);
             this.presentAlert("Request as be placed, We'll call you shortly");
-            this.sendNotification();
+            // this.sendNotification();
           } else {
             this.loadingController.dismiss();
             this.presentToast("All fields are required", "dark");
@@ -107,7 +109,7 @@ export class RequestPage implements OnInit {
         },
         err => {
           this.loadingController.dismiss();
-          console.log('the error >>>', err.message);
+          console.log('the error >>>', err);
           this.presentToast("Please check the data provided", "dark");
         }
       );

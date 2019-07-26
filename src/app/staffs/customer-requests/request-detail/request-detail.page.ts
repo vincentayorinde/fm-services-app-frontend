@@ -16,6 +16,9 @@ export class RequestDetailPage implements OnInit {
   public updateRequestStatus: any;
   public endRequestStatus: any;
   public userDetails: any;
+  public reqData: any;
+  public updateData: object;
+  public endData: object;
 
   constructor(
     public requestService: RequestService,
@@ -30,14 +33,6 @@ export class RequestDetailPage implements OnInit {
     this.getRequestID();
     this.getRequestForBillID();
     this.presentLoading();
-    this.network.onDisconnect().subscribe(() => {
-      this.presentToast("Network is disconnected", "light"); 
-    });
-    this.network.onConnect().subscribe(() => {
-      setTimeout(() => {
-        this.presentToast("Network is connected", "success");        
-      }, 2000)
-    });
   }
   presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
@@ -67,6 +62,10 @@ export class RequestDetailPage implements OnInit {
       result => {
         this.loadingController.dismiss();
         this.singleRequestData = result[0];
+        this.reqData = result[0];
+        if (this.reqData){
+          return this.reqData;
+        }
       },
       err => {
         this.loadingController.dismiss();
@@ -75,15 +74,15 @@ export class RequestDetailPage implements OnInit {
     );
   }
 
-  updateData = {
-    served_by: this.getUserName(),
-    status: "On Going"
-  };
-  endData = {
-    status: "Completed"
-  };
-
   startJob() {
+    this.updateData = {
+      customer_name: this.reqData.user_name,
+      customer_email: this.reqData.user_email,
+      service_type: this.reqData.service_type,
+      start_date: this.reqData.start_date,
+      served_by: this.getUserName(),
+      status: "On Going"
+    };
     this.presentLoading();
     this.requestService
       .updateRequestStatus(this.getRequestID(), this.updateData)
@@ -100,6 +99,13 @@ export class RequestDetailPage implements OnInit {
       );
   }
   endJob() {
+    this.endData = {
+      customer_name: this.reqData.user_name,
+      customer_email: this.reqData.user_email,
+      service_type: this.reqData.service_type,
+      start_date: this.reqData.start_date,
+      status: "Completed"
+    };
     this.presentLoading();
     this.requestService
       .endRequestStatus(this.getRequestID(), this.endData)

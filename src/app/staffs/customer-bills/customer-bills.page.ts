@@ -15,14 +15,7 @@ export class CustomerBillsPage implements OnInit {
     private toastController: ToastController) {
     this.getAllBills();
     this.presentLoading();
-    this.network.onDisconnect().subscribe(() => {
-      this.presentToast("Network is disconnected", "light"); 
-    });
-    this.network.onConnect().subscribe(() => {
-      setTimeout(() => {
-        this.presentToast("Network is connected", "success");        
-      }, 2000)
-    });
+
    }
    presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
