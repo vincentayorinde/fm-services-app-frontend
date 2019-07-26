@@ -5,7 +5,8 @@ import { PaymentService } from "../../../services/payment.service";
 import {
   ToastController,
   NavController,
-  AlertController
+  AlertController,
+  LoadingController
 } from "@ionic/angular";
 import { Router } from "@angular/router";
 
@@ -36,7 +37,8 @@ export class BillDetailPage implements OnInit {
     public billService: BillService,
     public paymentService: PaymentService,
     private route: ActivatedRoute,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private loadingController: LoadingController
   ) {
     this.getBill();
     this.getBillDateForPayment();
@@ -45,7 +47,12 @@ export class BillDetailPage implements OnInit {
     // const paymentData_ = console.log(paymentData_);
     // this.getBillforPayment = paymentData_;
   }
-
+  presentLoading =  async () =>  {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+   await loading.present();
+  }
   getBillID() {
     this.billId = this.route.snapshot.paramMap.get("bill-detail");
     return this.billId;
@@ -113,16 +120,18 @@ export class BillDetailPage implements OnInit {
       ...this.getBillforPayment,
       payment_method: this.paymentMethod
     };
+    this.presentLoading();
     this.paymentService.postPayment(this.paymentData).subscribe(
       result => {
+        this.loadingController.dismiss();
         this.paymentResponseData = result;
         console.log(this.paymentResponseData);
         this.router.navigate(["customers", "dashboard"]);
         this.presentAlert("Go to Menu -> Payment Instruction, to see how to pay");
       },
       err => {
-        console.log(err);
-        this.presentToast("Please check the data provided", "dark");
+        this.loadingController.dismiss();
+        this.presentToast("Server error, Please check internet connection", "dark");
       }
     );
   }

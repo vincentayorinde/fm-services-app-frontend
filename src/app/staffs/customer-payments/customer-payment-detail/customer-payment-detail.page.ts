@@ -29,7 +29,6 @@ export class CustomerPaymentDetailPage implements OnInit {
     console.log(this.adminUser);
     this.getPayment();
     this.presentLoading();
- 
   }
   presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
@@ -62,13 +61,14 @@ export class CustomerPaymentDetailPage implements OnInit {
 
   
   confirmPayment() {
+  this.presentLoading();
   this.updatePayment = {
     approval: "Confirmed",
     user_email: this.singlePaymentData.user_email,
     user_name: this.singlePaymentData.user_name,
     amount: this.singlePaymentData.amount,
     service_type: this.singlePaymentData.service_type,
-    payment_method: 'Mobile Money',
+    payment_method: this.singlePaymentData.payment_method,
     paid_at: this.singlePaymentData.paid_at,
   };
     this.paymentService
