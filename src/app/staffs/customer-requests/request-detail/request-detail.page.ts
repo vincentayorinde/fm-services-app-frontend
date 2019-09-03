@@ -129,7 +129,6 @@ export class RequestDetailPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

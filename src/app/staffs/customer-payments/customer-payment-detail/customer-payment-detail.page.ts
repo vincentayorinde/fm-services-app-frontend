@@ -26,7 +26,6 @@ export class CustomerPaymentDetailPage implements OnInit {
     this.adminUser = localStorage.getItem("userData");
     this.adminUser = JSON.parse(this.adminUser);
 
-    console.log(this.adminUser);
     this.getPayment();
     this.presentLoading();
   }
@@ -47,7 +46,6 @@ export class CustomerPaymentDetailPage implements OnInit {
       result => {
         this.loadingController.dismiss();
         this.singlePaymentData = result[0];
-        console.log(this.singlePaymentData);
         if(this.singlePaymentData){
           return this.singlePaymentData;
         }
@@ -98,7 +96,6 @@ export class CustomerPaymentDetailPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

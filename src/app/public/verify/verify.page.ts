@@ -37,7 +37,6 @@ export class VerifyPage implements OnInit {
       this.activateService.putData(this.activateData, "activate").subscribe(
         result => {
           this.responseData = result;
-          console.log(this.responseData);
           if (this.responseData.userData === "done") {
                 this.loadingController.dismiss();
                 this.presentToast("Activation successful", "success");
@@ -50,7 +49,6 @@ export class VerifyPage implements OnInit {
         },
         err => {
           this.loadingController.dismiss();
-          console.log('>>>>', err.message);
           this.presentToast("Connection error, Please check internet","dark");
         }
       );
@@ -76,7 +74,6 @@ export class VerifyPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

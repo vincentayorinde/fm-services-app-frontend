@@ -77,7 +77,6 @@ export class ResetPasswordPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

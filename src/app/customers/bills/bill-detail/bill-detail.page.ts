@@ -44,8 +44,6 @@ export class BillDetailPage implements OnInit {
     this.getBillDateForPayment();
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = data.userData;
-    // const paymentData_ = console.log(paymentData_);
-    // this.getBillforPayment = paymentData_;
   }
   presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
@@ -108,7 +106,6 @@ export class BillDetailPage implements OnInit {
     this.getBillforPayment = JSON.parse(
       localStorage.getItem("billDataPayment")
     );
-    console.log("Bill details", this.getBillforPayment);
     delete this.getBillforPayment.due_date;
     delete this.getBillforPayment.generated_at;
     delete this.getBillforPayment.items;
@@ -125,7 +122,6 @@ export class BillDetailPage implements OnInit {
       result => {
         this.loadingController.dismiss();
         this.paymentResponseData = result;
-        console.log(this.paymentResponseData);
         this.router.navigate(["customers", "dashboard"]);
         this.presentAlert("Go to Menu -> Payment Instruction, to see how to pay");
       },
@@ -145,7 +141,6 @@ export class BillDetailPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

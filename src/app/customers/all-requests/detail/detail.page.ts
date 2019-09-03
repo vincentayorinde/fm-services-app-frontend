@@ -44,7 +44,6 @@ export class DetailPage implements OnInit {
   getRequestBill(){
     this.requestService.getSingleRequestBill(this.getRequestID()).subscribe((result) => {
       this.singleRequestBillData = result[0];
-      console.log(this.singleRequestBillData);
     }, (err) => {
       console.log(err);
     })

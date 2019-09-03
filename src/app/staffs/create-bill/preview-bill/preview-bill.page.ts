@@ -37,13 +37,10 @@ export class PreviewBillPage implements OnInit {
    sendToCustomer() {
     if(this.billData){
       this.billData = JSON.parse(localStorage.getItem('billData'));
-
-        console.log('the bill data', this.billData);
          this.billService.postBill(this.billData).subscribe((result) => {
 
           this.billData = result;
           if(this.billData){
-            console.log(this.billData)  
             this.router.navigate(['staffs','staff-dashboard']);
             this.presentAlert("Bill sent, You can call customer to confirm");
           }
@@ -78,7 +75,6 @@ export class PreviewBillPage implements OnInit {
          {
           text: 'Okay',
           handler: () => {
-            console.log('Okay');
           }
         }
       ]

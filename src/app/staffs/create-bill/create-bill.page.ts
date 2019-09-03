@@ -60,7 +60,6 @@ export class CreateBillPage implements OnInit {
       }
       getRequestUserId(){
         this.requestService.getSingleRequest(this.getRequestID()).subscribe((result) => {
-          console.log(result);
           return this.singleRequestData = result[0];
 
         }, (err) => {
@@ -132,7 +131,6 @@ export class CreateBillPage implements OnInit {
          {
           text: 'Okay',
           handler: () => {
-            console.log('Okay');
           }
         }
       ]

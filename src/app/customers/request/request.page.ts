@@ -93,16 +93,13 @@ export class RequestPage implements OnInit {
       this.requestData.status
     ) {
       this.presentLoading();
-      console.log('>>> req data', this.requestData);
       this.requestService.postRequest(this.requestData).subscribe(
         result => {
           this.serviceResponseData = result;
           if (this.serviceResponseData.requestData) {
             this.loadingController.dismiss();
-            console.log(this.serviceResponseData);
             this.router.navigate(["customers", "dashboard"]);
             this.presentAlert("Request as be placed, We'll call you shortly");
-            // this.sendNotification();
           } else {
             this.loadingController.dismiss();
             this.presentToast("All fields are required", "dark");
@@ -110,12 +107,10 @@ export class RequestPage implements OnInit {
         },
         err => {
           this.loadingController.dismiss();
-          console.log('the error >>>', err);
           this.presentToast("Please check the data provided", "dark");
         }
       );
     } else {
-      console.log('the data >>>', this.requestData);
       this.presentToast("All fields are required.", "dark");
     }
   }
@@ -138,7 +133,6 @@ export class RequestPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

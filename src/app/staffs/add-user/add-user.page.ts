@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import {
   ToastController,
-  NavController,
+  LoadingController,
   AlertController
 } from "@ionic/angular";
 import { Router } from "@angular/router";
@@ -24,10 +24,18 @@ export class AddUserPage implements OnInit {
   constructor(
     public authServiceService: AuthServiceService,
     private toastController: ToastController,
-    private navCtrl: NavController,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingController: LoadingController,
   ) {}
+
+  presentLoading =  async () =>  {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+   await loading.present();
+  }
+
   addUser() {
     if (
       this.userData.username &&
@@ -36,14 +44,16 @@ export class AddUserPage implements OnInit {
       this.userData.name
     ) {
       //Api connections
-
+      this.presentLoading();
       this.authServiceService.postData(this.userData, "signup").subscribe(
         result => {
           this.responseData = result;
           if (this.responseData.userData) {
+            this.loadingController.dismiss();
             this.router.navigate(["staffs", "staff-dashboard"]);
             this.presentAlert("User added successfully!");
           } else {
+            this.loadingController.dismiss();
             this.presentToast(
               "Please give valid username and password",
               "dark"
@@ -77,7 +87,6 @@ export class AddUserPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

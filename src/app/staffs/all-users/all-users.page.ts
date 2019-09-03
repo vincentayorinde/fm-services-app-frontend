@@ -16,11 +16,20 @@ export class AllUsersPage implements OnInit {
     private toastController: ToastController) {
     this.getAllUsers();
   }
+  presentLoading =  async () =>  {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+   await loading.present();
+  }
   getAllUsers() {
+    this.presentLoading();
     this.usersService.getAllUsers().subscribe((result) => {
       if(result){
+        this.loadingController.dismiss();
         this.AllUsers = result;
       }else{
+         this.loadingController.dismiss();
          this.noData = {"message":"No data yet"};
       }
     }, (err) => {

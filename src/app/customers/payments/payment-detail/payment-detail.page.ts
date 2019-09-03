@@ -31,8 +31,6 @@ export class PaymentDetailPage implements OnInit {
     this.paymentService.getSinglePayment(this.getPaymentID()).subscribe((result) => {
 
       this.singlePaymentData = result[0];
-      
-      console.log(this.singlePaymentData);
      
     }, (err) => {
       console.log(err);

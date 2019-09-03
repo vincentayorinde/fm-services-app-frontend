@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UsersService } from "../../../services/users.service";
-import { AlertController } from "@ionic/angular";
+import { AlertController, LoadingController } from "@ionic/angular";
 @Component({
   selector: "app-user-detail",
   templateUrl: "./user-detail.page.html",
@@ -24,23 +24,28 @@ export class UserDetailPage implements OnInit {
     public usersService: UsersService,
     private route: ActivatedRoute,
     private router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public loadingController :LoadingController,
   ) {
     this.getUser();
   }
-  // async clearSingleUser() {
-  //   await localStorage.removeItem("singleUserData");
-  //   this.getUser();
-  // }
-
+  presentLoading =  async () =>  {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+   await loading.present();
+  }
   getUserID() {
     this.userId = this.route.snapshot.paramMap.get("user-detail");
     return this.userId;
   }
 
   async getUser() {
+    this.presentLoading();
     await this.usersService.getSingleUser(this.getUserID()).subscribe(
       result => {
+        if(result){
+        this.loadingController.dismiss();     
         this.singleUserData = result[0];
         localStorage.setItem(
           "singleUserData",
@@ -48,10 +53,10 @@ export class UserDetailPage implements OnInit {
         );
         this.data = localStorage.getItem("singleUserData");
         this.data = JSON.parse(this.data);
-        if (this.data.isSuspended === "1") {
+        if (this.data.isSuspended === "1" || this.data.isSuspended === "true") {
           this.isSuspended = true;
         }
-        if (this.data.isSuspended === "0") {
+        if (this.data.isSuspended === "0" || this.data.isSuspended === "false") {
           this.isSuspended = false;
         }
         this.username = this.data.username;
@@ -60,7 +65,9 @@ export class UserDetailPage implements OnInit {
         this.role = this.data.role;
         this.date_joined = this.data.date_joined;
         this.isDeleted = this.data.isDeleted;
-        console.log(this.data);
+      }else{
+        this.loadingController.dismiss();
+      }
       },
       err => {
         console.log(err);
@@ -69,8 +76,7 @@ export class UserDetailPage implements OnInit {
   }
 
   updateUser() {
-    // if (this.isSuspended === false) this.isSuspended = 0;
-    // else this.isSuspended = 1;
+    this.presentLoading();
     let updateData = {
       username: this.username,
       email: this.email,
@@ -79,16 +85,14 @@ export class UserDetailPage implements OnInit {
       isSuspended: this.isSuspended,
       isDeleted: this.isDeleted
     };
-    console.log(this.userId);
-    console.log(updateData);
     this.usersService.updateUser(this.getUserID(), updateData).subscribe(
       result => {
+        this.loadingController.dismiss();
         this.updatedUserData = result;
         this.router.navigate(["staffs", "staff-dashboard"]);
         this.presentAlert("User updated successfully!");
       },
       err => {
-        console.log(err);
       }
     );
   }
@@ -100,7 +104,6 @@ export class UserDetailPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

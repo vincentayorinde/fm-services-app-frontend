@@ -13,23 +13,9 @@ export class ChatPage implements OnInit {
   s;
 
   constructor() {
-    // const data = JSON.parse(localStorage.getItem('userData'));
-    // this.userDetails = data.userData;
-    // // this.message = this.navParams.get('message')
-    // this.s = this.db.collection('/chat').add(data => {
-    //   console.log(data);
-    // });
    }
 
   sendMessage(){
-    // this.db.collection('/chat').add({
-    //   username: this.userDetails.username,
-    //   message: this.message
-    // }).then( () => {
-    //   // message is sent
-    // }).catch( () => {
-    //   // some errors
-    // })
   }
 
   ngOnInit() {
