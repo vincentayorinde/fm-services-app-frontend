@@ -14,7 +14,7 @@
                 <h5>Service Details</h5>
                   <ion-item>
                       <ion-label position="stacked">Service Type</ion-label>
-                      <ion-select [(ngModel)]="requestData.service_type" class="selector" interface="popover" placeholder="Select">
+                      <ion-select  (ionChange)="checkMaintain()" [(ngModel)]="requestData.service_type" interface="action-sheet" placeholder="Select">
                         <ion-select-option value="General Maintenance">General Maintenance</ion-select-option>
                         <ion-select-option value="Housekeeping and Janitorial Services">Housekeeping and Janitorial Services</ion-select-option>
                         <ion-select-option value="Landscaping and Ground Maintenance">Landscaping and Ground Maintenance</ion-select-option>
@@ -24,9 +24,19 @@
                         <ion-select-option value="Property Management">Property Management</ion-select-option>
                       </ion-select>
                     </ion-item>
+                    <ion-item *ngIf="maintain">
+                      <ion-label position="stacked">General Maintenance Type</ion-label>
+                      <ion-select [(ngModel)]="requestData.maintain_type" interface="action-sheet" placeholder="Select">
+                        <ion-select-option value="Electrical Works">Electrical Works</ion-select-option>
+                        <ion-select-option value="Carpentry Work">Carpentry Work</ion-select-option>
+                        <ion-select-option value="Plumbing Works">Plumbing Works</ion-select-option>
+                        <ion-select-option value="Painting Works">Painting Works</ion-select-option>
+                        <ion-select-option value="Interior Decorations and Designs">Interior Decorations and Designs</ion-select-option>
+                      </ion-select>
+                    </ion-item>
                     <ion-item>
                         <ion-label position="stacked">Priority</ion-label>
-                        <ion-select [(ngModel)]="requestData.service_priority" placeholder="Select">
+                        <ion-select [(ngModel)]="requestData.service_priority" interface="action-sheet" placeholder="Select">
                           <ion-select-option value="Routine">Routine</ion-select-option>
                           <ion-select-option value="Emergency">Emergency (1 Day)</ion-select-option>
                         </ion-select>
@@ -76,7 +86,7 @@
                         </ion-item>
                         <ion-item>
                             <ion-label position="stacked">Select Region</ion-label>
-                            <ion-select [(ngModel)]="requestData.region"  placeholder="Select">
+                            <ion-select [(ngModel)]="requestData.region" interface="action-sheet" placeholder="Select">
                               <ion-select-option value="Ashanti">Ashanti</ion-select-option>
                               <ion-select-option value="Brong-Ahafo">Brong-Ahafo</ion-select-option>
                               <ion-select-option value="Central">Central</ion-select-option>

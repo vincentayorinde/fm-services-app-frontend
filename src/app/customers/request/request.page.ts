@@ -21,28 +21,23 @@ export class RequestPage implements OnInit {
   toast: any;
   serviceResponseData: any;
   customDayShortNames: '';
-
+  public maintain: boolean;
   constructor(
     public alertController: AlertController,
     public requestService: RequestService,
     private toastController: ToastController,
     private navCtrl: NavController,
     private router: Router,
-    private localNotifications: LocalNotifications,
-    private plt: Platform,
     public loadingController: LoadingController
-  ) {}
+  ) {
+    this.maintain = false;
+  }
   presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
    await loading.present();
   }
-  // getUserID() {
-  //   const data = JSON.parse(localStorage.getItem("userData"));
-  //   this.userID = data.userData.id;
-  //   return this.userID;
-  // }
   getUserData() {
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userData = data.userData;
@@ -54,6 +49,7 @@ export class RequestPage implements OnInit {
     user_name: this.getUserData().name,
     user_email: this.getUserData().email,
     service_type: "",
+    maintain_type: "",
     service_priority: "",
     service_desc: "",
     start_date: "",
@@ -67,15 +63,9 @@ export class RequestPage implements OnInit {
     region: "",
     status: "Not Started"
   };
-  // sendNotification() {
-  //   this.localNotifications.schedule({
-  //     id: 1,
-  //     title: 'New Request',
-  //     text: 'FM Services Notification',
-  //     trigger: { at: new Date(new Date().getTime() + 5 * 1000 )},
-  //     data: { mydata: 'This is the request notification content' },
-  //   });
-  // }
+  checkMaintain(){
+    this.requestData.service_type === 'General Maintenance' ? this.maintain = true : this.maintain = false
+  }
   request() {
     if (
       this.requestData.service_type &&
@@ -114,7 +104,7 @@ export class RequestPage implements OnInit {
       this.presentToast("All fields are required.", "dark");
     }
   }
-
+ 
   async presentToast(msg, status) {
     let toast = await this.toastController.create({
       message: msg,
