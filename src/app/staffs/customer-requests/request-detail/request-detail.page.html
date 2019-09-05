@@ -31,6 +31,7 @@
         </ion-col>
         <ion-col size="8">
           <small>{{ singleRequestData.service_type }}</small>
+          <small *ngIf="singleRequestData.service_type == 'General Maintenance'">: {{ singleRequestData.maintain_type }} </small>
         </ion-col>
     </ion-row>
     <ion-row>

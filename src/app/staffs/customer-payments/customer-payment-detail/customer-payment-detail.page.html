@@ -31,9 +31,10 @@
         >
         <br />
         Being payment for
-        <span style="text-decoration: underline"
-          ><strong>{{ singlePaymentData.service_type }}</strong></span
-        >
+        <span style="text-decoration: underline">
+          <strong>{{ singlePaymentData.service_type }}</strong>
+          <strong *ngIf="singlePaymentData.service_type == 'General Maintenance'">: {{ singlePaymentData.maintain_type }} </strong>
+        </span>
         Service<br />
         Amount
         <span style="text-decoration: underline"

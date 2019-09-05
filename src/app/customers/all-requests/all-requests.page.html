@@ -17,6 +17,7 @@
             <small>{{  data.date_added }}</small>
             <br>
               {{  data.service_type }}
+              <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>
                <span class="status" style="background-color: gray;">Not-Started</span> 
           </p>
         </ion-item>
@@ -25,6 +26,7 @@
             <small>{{  data.date_added }}</small>
             <br>
               {{  data.service_type }}
+              <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>
               <span class="status" style="background-color: orange;">On-Going</span>   
           </p>
         </ion-item>
@@ -33,6 +35,7 @@
             <small>{{  data.date_added }}</small>
             <br>
               {{  data.service_type }}
+              <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>
               <span class="status" style="background-color: green;">Completed</span>
           
           </p>

@@ -57,8 +57,10 @@ export class BillDetailPage implements OnInit {
   }
 
   getBill() {
+    this.presentLoading();
     this.billService.getSingleBill(this.getBillID()).subscribe(
       result => {
+        this.loadingController.dismiss();
         this.singleBillData = result[0];
 
         this.billData = JSON.parse(this.singleBillData.items);

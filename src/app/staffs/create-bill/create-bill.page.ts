@@ -84,6 +84,7 @@ export class CreateBillPage implements OnInit {
         this.itemFormData = {
           "billItems": val,
           "service_type": this.singleRequestData.service_type,
+          "maintain_type": this.singleRequestData.maintain_type,
           "generated_at": "",
           "amount": totals,
           "due_date": val.due_date,

@@ -30,6 +30,7 @@ export class CustomerBillsPage implements OnInit {
     if(result.length > 0){
       this.loadingController.dismiss();
       this.AllBills = result;
+      console.log('all bills', this.AllBills);
     }else{
       this.loadingController.dismiss();
        this.noData = {"message":"No data yet"};

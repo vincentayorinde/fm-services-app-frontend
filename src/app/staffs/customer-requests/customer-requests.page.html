@@ -17,6 +17,8 @@
             <small>Requested on {{  data.date_added }}</small>
             <br><small>
             by: {{  data.user_name }} - {{  data.service_type }}
+            <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>                
+
                <span class="status" style="background-color: gray;">Not-Started</span>
           </small>
           </p>
@@ -26,6 +28,8 @@
             <small>Requested on {{  data.date_added }}</small>
             <br><small>
               by: {{  data.user_name }} - {{  data.service_type }}
+              <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>                
+
               <span class="status" style="background-color: orange;">On-Going</span>
           </small>
           </p>
@@ -35,6 +39,8 @@
             <small>Requested on {{  data.date_added }}</small>
             <br><small>
               by: {{  data.user_name }} - {{  data.service_type }}
+              <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>                
+
               <span class="status" style="background-color: green;">Completed</span>
           </small>
           </p>

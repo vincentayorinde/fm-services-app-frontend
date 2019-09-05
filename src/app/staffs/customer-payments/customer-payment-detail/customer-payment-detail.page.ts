@@ -66,6 +66,7 @@ export class CustomerPaymentDetailPage implements OnInit {
     user_name: this.singlePaymentData.user_name,
     amount: this.singlePaymentData.amount,
     service_type: this.singlePaymentData.service_type,
+    maintain_type: this.singlePaymentData.maintain_type,
     payment_method: this.singlePaymentData.payment_method,
     paid_at: this.singlePaymentData.paid_at,
   };

@@ -3,12 +3,10 @@ import {
   ToastController,
   NavController,
   AlertController,
-  Platform,
   LoadingController
 } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { RequestService } from "../../services/request.service";
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: "app-request",
@@ -26,7 +24,6 @@ export class RequestPage implements OnInit {
     public alertController: AlertController,
     public requestService: RequestService,
     private toastController: ToastController,
-    private navCtrl: NavController,
     private router: Router,
     public loadingController: LoadingController
   ) {
