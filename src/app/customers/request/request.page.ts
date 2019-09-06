@@ -14,6 +14,7 @@ import { RequestService } from "../../services/request.service";
   styleUrls: ["./request.page.scss"]
 })
 export class RequestPage implements OnInit {
+  date:any = new Date().toString();
   userID: number;
   userData: any;
   toast: any;

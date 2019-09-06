@@ -47,14 +47,14 @@
                     </ion-item>
                     <ion-item>
                         <ion-label>Start Date</ion-label>
-                        <ion-datetime [(ngModel)]="requestData.start_date" value="2019-04-19" min="2019-01" max="2030"
+                        <ion-datetime [(ngModel)]="requestData.start_date" value={date} placeholder="Select Date" min="2019-01" max="2030"
                           [dayShortNames]="customDayShortNames"
                           displayFormat="DDD. MMM DD, YY"
                           monthShortNames="Jan., Feb., Mar., Apr., May, Jun., Jul., Aug., Sep., Cct., Nov., Dec."></ion-datetime>
                       </ion-item>
                       <ion-item>
                           <ion-label>End Date</ion-label>
-                          <ion-datetime [(ngModel)]="requestData.end_date" value="2019-04-25" min="2019-01" max="2030"
+                          <ion-datetime [(ngModel)]="requestData.end_date" value={date} placeholder="Select Date" min="2019-01" max="2030"
                             [dayShortNames]="customDayShortNames"
                             displayFormat="DDD. MMM DD, YY"
                             monthShortNames="Jan., Feb., Mar., Apr., May, Jun., Jul., Aug., Sep., Cct., Nov., Dec."></ion-datetime>
@@ -78,7 +78,7 @@
                         </ion-item>
                         <ion-item>
                             <ion-label position="stacked">Digital Address</ion-label>
-                            <ion-input [(ngModel)]="requestData.digital_address" type="text" placeholder="Enter digital address" required></ion-input>
+                            <ion-input [(ngModel)]="requestData.digital_address" type="text" placeholder="Enter digital address"></ion-input>
                         </ion-item>
                         <ion-item>
                             <ion-label position="stacked">City</ion-label>
