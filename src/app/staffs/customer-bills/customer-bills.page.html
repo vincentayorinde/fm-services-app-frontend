@@ -12,7 +12,7 @@
   <ion-list *ngIf="AllBills;else loader"> 
   <ion-searchbar animated (ionChange)="search( $event )" placeholder="Request name"></ion-searchbar>
       <ion-item-sliding *ngFor="let data of AllBills | adminBillSearch: toSearch">
-          <ion-item *ngIf="data.status == 'Paid'" routerLink='/staffs/customer-bills/{{  data.id }}'>
+          <ion-item *ngIf="data.status == 'Paid'" routerLink='/staffs/customer-bills/{{  data.request_id }}'>
             <p>
               <small>{{  data.generated_at }}</small>
               <br>
@@ -22,7 +22,7 @@
               <span class="status" style="background-color: green;">Paid</span>
            </p>
           </ion-item>
-          <ion-item *ngIf="data.status == 'Not Paid'" routerLink='/staffs/customer-bills/{{  data.id }}'>
+          <ion-item *ngIf="data.status == 'Not Paid'" routerLink='/staffs/customer-bills/{{  data.request_id }}'>
             <p>
               <small>{{  data.generated_at }}</small>
               <br>
@@ -33,7 +33,7 @@
                 
               </p>
             </ion-item>
-            <ion-item *ngIf="data.date_due >= todayDate" routerLink='/staffs/customer-bills/{{  data.id }}'>
+            <ion-item *ngIf="data.date_due >= todayDate" routerLink='/staffs/customer-bills/{{  data.request_id }}'>
               <p>
                 <small>{{  data.generated_at }}</small>
                 <br>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router  } from '@angular/router';
-import { ToastController, NavController, AlertController } from '@ionic/angular';
-import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
+import { ToastController, AlertController } from '@ionic/angular';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { BillService } from '../../services/bill.service';
 import { RequestService } from '../../services/request.service';
 
