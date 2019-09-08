@@ -2,9 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { BillService } from "../../../services/bill.service";
 import { PaymentService } from "../../../services/payment.service";
+import * as moment from 'moment';
+
 import {
   ToastController,
-  NavController,
   AlertController,
   LoadingController
 } from "@ionic/angular";
@@ -30,6 +31,7 @@ export class BillDetailPage implements OnInit {
   paymentMethod: any;
   public payment:any;
   public paymentData:any;
+  public generatedAt;
 
   constructor(
     public alertController: AlertController,
@@ -62,6 +64,7 @@ export class BillDetailPage implements OnInit {
       result => {
         this.loadingController.dismiss();
         this.singleBillData = result[0];
+      this.generatedAt =  moment(this.singleBillData.generated_at).format('MMMM Do YYYY hh:mm a')
 
         this.billData = JSON.parse(this.singleBillData.items);
 

@@ -15,7 +15,6 @@ export class BillsPage implements OnInit {
   public AllBillsData : any;
   constructor(public billService: BillService,  private loadingController: LoadingController, private toastController: ToastController) {
     this.getBills();
-    this.presentLoading();
     localStorage.removeItem('billDataPayment');
   } 
   presentLoading =  async () =>  {
@@ -31,6 +30,7 @@ export class BillsPage implements OnInit {
   }
 
   getBills(){
+    this.presentLoading();
     this.billService.getBills(this.getUserID()).subscribe((result) => {
       if(result.length > 0){
         this.loadingController.dismiss();
@@ -40,6 +40,7 @@ export class BillsPage implements OnInit {
         this.noData = {"message":"No data yet"};
       }
     }, (err) => {
+      this.noData = {"message":"Check Internet"};
       this.loadingController.dismiss();
       this.presentToast("Coonection error, Please check internet", "dark");
     })

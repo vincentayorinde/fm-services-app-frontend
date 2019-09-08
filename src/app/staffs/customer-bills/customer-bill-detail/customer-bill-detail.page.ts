@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute  } from '@angular/router';
 import { BillService } from '../../../services/bill.service';
-import { Router } from '@angular/router';
 import { LoadingController, ToastController } from "@ionic/angular";
 import { Network } from '@ionic-native/network/ngx';
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-customer-bill-detail',
   templateUrl: './customer-bill-detail.page.html',
@@ -14,6 +15,7 @@ export class CustomerBillDetailPage implements OnInit {
   public singleBillData;
   public sub_total: any;
   public billData: any;
+  public generatedAt;
  
 
   constructor(public billService: BillService, private route: ActivatedRoute, private loadingController:LoadingController,  public network: Network,
@@ -33,6 +35,8 @@ export class CustomerBillDetailPage implements OnInit {
       if(result.length > 0){
         this.loadingController.dismiss();
         this.singleBillData = result[0];
+        this.generatedAt =  moment(this.singleBillData.generated_at).format('MMMM Do YYYY hh:mm a')
+
         this.billData = JSON.parse(this.singleBillData.items);
         this.sub_total = [];
         for(let i=0; i < this.billData.billItems.length; i++){

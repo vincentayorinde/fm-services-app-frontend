@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import {
   ToastController,
-  NavController,
   AlertController,
   LoadingController
 } from "@ionic/angular";
@@ -14,13 +13,16 @@ import { RequestService } from "../../services/request.service";
   styleUrls: ["./request.page.scss"]
 })
 export class RequestPage implements OnInit {
-  date:any = new Date().toString();
+  minDate:any = new Date();
+  maxDate:any = this.minDate.getFullYear()+6;
+  
   userID: number;
   userData: any;
   toast: any;
   serviceResponseData: any;
   customDayShortNames: '';
   public maintain: boolean;
+  public setDate: boolean;
   constructor(
     public alertController: AlertController,
     public requestService: RequestService,
@@ -29,6 +31,7 @@ export class RequestPage implements OnInit {
     public loadingController: LoadingController
   ) {
     this.maintain = false;
+    this.setDate = false;
   }
   presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
@@ -64,42 +67,71 @@ export class RequestPage implements OnInit {
   checkMaintain(){
     this.requestData.service_type === 'General Maintenance' ? this.maintain = true : this.maintain = false
   }
+  checkPriority(){
+    this.requestData.service_priority === 'Routine' ? this.setDate = true : this.setDate = false
+  }
   request() {
-    if (
-      this.requestData.service_type &&
-      this.requestData.service_priority &&
-      this.requestData.service_desc &&
-      this.requestData.start_date &&
-      this.requestData.end_date &&
-      this.requestData.tel_no &&
-      this.requestData.house_no &&
-      this.requestData.house_area &&
-      this.requestData.house_landmark &&
-      this.requestData.digital_address &&
-      this.requestData.city &&
-      this.requestData.region &&
-      this.requestData.status
-    ) {
-      this.presentLoading();
-      this.requestService.postRequest(this.requestData).subscribe(
-        result => {
-          this.serviceResponseData = result;
-          if (this.serviceResponseData.requestData) {
-            this.loadingController.dismiss();
-            this.router.navigate(["customers", "dashboard"]);
-            this.presentAlert("Request as be placed, We'll call you shortly");
-          } else {
-            this.loadingController.dismiss();
-            this.presentToast("All fields are required", "dark");
+    if ( this.requestData.service_type) {
+      if(this.requestData.service_type === 'General Maintenance' && !this.requestData.maintain_type) {
+        this.presentToast("Please specify a General Maintenance Type", "dark");
+       }else{
+        if(this.requestData.service_priority) {
+         if(this.requestData.service_priority === 'Routine' && !this.requestData.start_date) {
+            this.presentToast("Please specify your preferred Start Date", "dark");
+          }else{
+            if(this.requestData.service_desc) {
+                      if(this.requestData.tel_no) {
+                        if(this.requestData.house_no) {
+                            if(this.requestData.house_area) {
+                                  if(this.requestData.house_landmark) {
+                                      if(this.requestData.city){
+                                          if(this.requestData.region){
+                                              this.presentLoading();
+                                              this.requestService.postRequest(this.requestData).subscribe(
+                                                result => {
+                                                  this.serviceResponseData = result;
+                                                  if (this.serviceResponseData.requestData) {
+                                                    this.loadingController.dismiss();
+                                                    this.router.navigate(["customers", "dashboard"]);
+                                                    this.presentAlert("Request as be placed, We'll call you shortly");
+                                                  } else {
+                                                    this.loadingController.dismiss();
+                                                    this.presentToast("All fields are required", "dark");
+                                                  }
+                                                },
+                                                err => {
+                                                  this.loadingController.dismiss();
+                                                  this.presentToast("Please Ensure the data provided is Valid", "dark");
+                                                }
+                                              );
+                                          }else{
+                                            this.presentToast("Please specify the Region", "dark");
+                                          }
+                                      }else{
+                                         this.presentToast("Please provide the City", "dark");
+                                      }
+                                  }else{
+                                    this.presentToast("Please provide the Landmark", "dark");
+                                }
+                            }else{
+                              this.presentToast("Please provide the House Area", "dark");
+                            }
+                        }else{
+                            this.presentToast("Please provide the House No.", "dark");
+                        }
+                      }else{
+                        this.presentToast("Please provide the Tel No.", "dark");
+                      }
+              }else{
+              this.presentToast("Please provide a Service Description", "dark");
+            }
           }
-        },
-        err => {
-          this.loadingController.dismiss();
-          this.presentToast("Please check the data provided", "dark");
+        } else {
+          this.presentToast("Please specify a Service Priority", "dark");
         }
-      );
+      }
     } else {
-      this.presentToast("All fields are required.", "dark");
+      this.presentToast("Please specify a Service Type", "dark");
     }
   }
  

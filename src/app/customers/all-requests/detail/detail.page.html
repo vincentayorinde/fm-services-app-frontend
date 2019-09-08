@@ -16,7 +16,7 @@
         </ion-col>
         <ion-col size="4">
           <p class="date">Requested on <br>
-            {{ singleRequestData.date_added }}
+            {{ newDateAdded }}
           </p>
          </ion-col>
       </ion-row>
@@ -67,7 +67,7 @@
               <small class="left-col"> Digital Address </small>
               </ion-col>
               <ion-col class="" size="8">
-                  <small> {{ singleRequestData.digital_address }} </small>
+                  <small *ngIf="singleRequestData.digital_address !='';else not_applicable"> {{ singleRequestData.digital_address }} </small>
               </ion-col>
           </ion-row>
           <ion-row>
@@ -87,19 +87,36 @@
               </ion-col>
           </ion-row>
           <ion-row>
+            <ion-col size="4">
+            <small class="left-col"> Request Date </small>
+            </ion-col>
+            <ion-col class="" size="8">
+                <small> {{ newDateAdded }}</small>
+            </ion-col>
+        </ion-row>
+          <ion-row>
+            <ion-col size="4">
+            <small class="left-col"> Service Priority </small>
+            </ion-col>
+            <ion-col class="" size="8">
+                <small> {{ singleRequestData.service_priority }}</small>
+            </ion-col>
+        </ion-row>
+          <ion-row>
               <ion-col size="4">
               <small class="left-col"> Your Start Date </small>
               </ion-col>
               <ion-col class="" size="8">
-                  <small> {{ singleRequestData.start_date }} </small>
+                 <span *ngIf="singleRequestData.start_date !='0000-00-00 00:00:00';else not_applicable"><small> {{ newStartDate }} </small></span> 
               </ion-col>
           </ion-row>
+         
           <ion-row>
               <ion-col size="4">
               <small class="left-col"> Your End Date </small>
               </ion-col>
               <ion-col class="" size="8">
-                  <small> {{ singleRequestData.end_date }} </small>
+                <span *ngIf="singleRequestData.end_date !='0000-00-00 00:00:00'; else not_applicable"><small> {{ newEndDate }} </small></span>                  
               </ion-col>
           </ion-row>
           <ion-row>
@@ -115,5 +132,5 @@
         <ion-button  *ngIf="singleRequestData.bill_generated_at == null" color="light" disabled expand="block">No Blll Yet</ion-button>
         <p></p>
     </ion-grid>
-  
+    <ng-template #not_applicable>n\a</ng-template>
 </ion-content>

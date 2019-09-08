@@ -18,11 +18,6 @@ export class AppComponent {
   
   public appPages = [
     {
-      title: 'Home',
-      url: '/customers/dashboard',
-      icon: 'home'
-    },
-    {
       title: 'Payment Instruction',
       url: '/instruction',
       icon: 'cash'

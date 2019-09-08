@@ -21,7 +21,6 @@ export class AllRequestsPage implements OnInit {
     private toastController: ToastController,
     ) {
     this.getRequests();
-    this.presentLoading();
   }
   presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
@@ -38,6 +37,7 @@ export class AllRequestsPage implements OnInit {
   }
 
   getRequests(){
+    this.presentLoading();
     this.requestService.getRequests(this.getUserID()).subscribe((result) => {
       if(result.length > 0){
         this.loadingController.dismiss();
@@ -47,7 +47,8 @@ export class AllRequestsPage implements OnInit {
          this.noData = {"message":"No data yet"};
       }
     }, (err) => {
-      this.loadingController.dismiss();
+      this.noData = {"message":"Check Internet"};
+      if(err) this.loadingController.dismiss();
       this.presentToast("Coonection error, Please check internet", "dark");
     })
   }
