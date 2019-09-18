@@ -11,7 +11,16 @@ const routes: Routes = [
   { path: 'recover', loadChildren: './public/recover/recover.module#RecoverPageModule' },
   { path: 'reset-password', loadChildren: './public/reset-password/reset-password.module#ResetPasswordPageModule' },
   { path: 'verify', loadChildren: './public/verify/verify.module#VerifyPageModule' },
-  { path: 'instruction', loadChildren: './public/instruction/instruction.module#InstructionPageModule' }
+  { path: 'instruction', loadChildren: './public/instruction/instruction.module#InstructionPageModule' },
+  { path: 'about', loadChildren: './public/about/about.module#AboutPageModule' },
+  { path: 'mission', loadChildren: './public/about/mission/mission.module#MissionPageModule' },
+  { path: 'management', loadChildren: './public/about/management/management.module#ManagementPageModule' },
+  { path: 'services', loadChildren: './public/about/services/services.module#ServicesPageModule' },
+  { path: 'working-areas', loadChildren: './public/about/working-areas/working-areas.module#WorkingAreasPageModule' },
+  { path: 'why-us', loadChildren: './public/about/why-us/why-us.module#WhyUsPageModule' },
+  { path: 'our-clients', loadChildren: './public/about/our-clients/our-clients.module#OurClientsPageModule' },
+  { path: 'charges', loadChildren: './public/about/charges/charges.module#ChargesPageModule' },
+  { path: 'contact', loadChildren: './public/contact/contact.module#ContactPageModule' }
 ];
 
 @NgModule({

@@ -18,6 +18,46 @@ export class AppComponent {
   
   public appPages = [
     {
+      title: 'About FMApp',
+      children: [
+        {
+          title: 'Our Mission',
+          url: '/mission',
+          icon: 'alert'
+        },
+        {
+          title: 'Company Management',
+          url: '/management',
+          icon: 'briefcase'
+        },
+        {
+          title: 'Our Services',
+          url: '/services',
+          icon: 'logo-buffer'
+        },
+        {
+          title: 'Working Areas',
+          url: '/working-areas',
+          icon: 'build'
+        },
+        {
+          title: 'Why Choose Us?',
+          url: '/why-us',
+          icon: 'bulb'
+        },
+        {
+          title: 'Our Clients',
+          url: '/our-clients',
+          icon: 'contacts'
+        },
+        {
+          title: 'Charges',
+          url: '/charges',
+          icon: 'card'
+        },
+      ]
+    },
+    {
       title: 'Payment Instruction',
       url: '/instruction',
       icon: 'cash'

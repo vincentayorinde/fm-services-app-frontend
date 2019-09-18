@@ -1,0 +1,130 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/customers/dashboard"></ion-back-button>
+          </ion-buttons>
+      <ion-title>Our Mission</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-grid>
+        <ion-row class="header">
+          <ion-col size="8">
+            <strong>Supported Payment Methods</strong><br>
+          </ion-col>
+        </ion-row>
+        <div class="body">
+            <ion-row>
+                <ion-col size="4">
+                <small class="left-col" >Mobile Money </small>
+                </ion-col>
+                <ion-col class="" size="8">
+                    <small> Name: Jude Jonfiah <br> Phone No. 0246257238 </small>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="4">
+                <small class="left-col">For Cheque Payment </small>
+                </ion-col>
+                <ion-col class="" size="8">
+                    <small> Bank Account Name: FM Services Limited</small>
+                </ion-col>
+            </ion-row>
+           
+          </div>
+          <p>Once payment is made. We'll confirm and approve it. Thank you</p>
+      </ion-grid>
+      <mbsc-form [options]="formSettings">
+          <mbsc-note color="primary">Use the accordion on forms to open only one panel at a time.</mbsc-note>
+      
+          <div class="mbsc-btn-group-block">
+              <mbsc-button (click)="toggleLast()">Toggle last panel</mbsc-button>
+              <mbsc-button (click)="closeAll()">Close all panels</mbsc-button>
+          </div>
+      </mbsc-form>
+      
+      <mbsc-accordion>
+      
+          <mbsc-card collapsible open #adeline="mobiscroll">
+              <mbsc-card-header>
+                  <mbsc-avatar src="https://img.mobiscroll.com/demos/f2.png"></mbsc-avatar>
+                  <mbsc-card-title class="mbsc-bold">Adeline Sharman</mbsc-card-title>
+                  <mbsc-card-subtitle>Bigcorp Inc.</mbsc-card-subtitle>
+              </mbsc-card-header>
+              <mbsc-card-content>
+                  <mbsc-listview [options]="listviewSettings">
+                      <mbsc-listview-item icon="material-email">
+                          <p>Email</p>
+                          <h4><a href="mailto:adeline-s@bigcorp.com">adeline-s@bigcorp.com</a></h4>
+                      </mbsc-listview-item>
+                      <mbsc-listview-item icon="material-phone-iphone">
+                          <p>Mobile</p>
+                          <h4><a href="tel:(202) 555-0147">(202) 555-0147</a></h4>
+                      </mbsc-listview-item>
+                  </mbsc-listview>
+              </mbsc-card-content>
+          </mbsc-card>
+      
+          <mbsc-card collapsible #carl="mobiscroll">
+              <mbsc-card-header>
+                  <mbsc-avatar src="https://img.mobiscroll.com/demos/m2.png"></mbsc-avatar>
+                  <mbsc-card-title class="mbsc-bold">Carl Hambledon</mbsc-card-title>
+                  <mbsc-card-subtitle>Washaway Ltd.</mbsc-card-subtitle>
+              </mbsc-card-header>
+              <mbsc-card-content>
+                  <mbsc-listview [options]="listviewSettings">
+                      <mbsc-listview-item icon="material-email">
+                          <p>Email</p>
+                          <h4><a href="mailto:carl.h@washaway.com">carl.h@washaway.com</a></h4>
+                      </mbsc-listview-item>
+                      <mbsc-listview-item icon="material-phone-iphone">
+                          <p>Mobile</p>
+                          <h4><a href="tel:(202) 553-5247">(202) 553-5247</a></h4>
+                      </mbsc-listview-item>
+                  </mbsc-listview>
+              </mbsc-card-content>
+          </mbsc-card>
+      
+          <mbsc-card collapsible #tinker="mobiscroll">
+              <mbsc-card-header>
+                  <mbsc-avatar src="https://img.mobiscroll.com/demos/f1.png"></mbsc-avatar>
+                  <mbsc-card-title class="mbsc-bold">Hortense Tinker</mbsc-card-title>
+                  <mbsc-card-subtitle>Tinker Records</mbsc-card-subtitle>
+              </mbsc-card-header>
+              <mbsc-card-content>
+                  <mbsc-listview [options]="listviewSettings">
+                      <mbsc-listview-item icon="material-email">
+                          <p>Email</p>
+                          <h4><a href="mailto:hortense@tinker.com">hortense@tinker.com</a></h4>
+                      </mbsc-listview-item>
+                      <mbsc-listview-item icon="material-phone-iphone">
+                          <p>Mobile</p>
+                          <h4><a href="tel:(202) 555-0137">(202) 555-0137</a></h4>
+                      </mbsc-listview-item>
+                  </mbsc-listview>
+              </mbsc-card-content>
+          </mbsc-card>
+          <mbsc-card collapsible #barry="mobiscroll">
+              <mbsc-card-header>
+                  <mbsc-avatar src="https://img.mobiscroll.com/demos/m1.png"></mbsc-avatar>
+                  <mbsc-card-title class="mbsc-bold">Barry Lyon</mbsc-card-title>
+                  <mbsc-card-subtitle>Road Scrapers Inc</mbsc-card-subtitle>
+              </mbsc-card-header>
+              <mbsc-card-content>
+                  <mbsc-listview [options]="listviewSettings">
+                      <mbsc-listview-item icon="material-email">
+                          <p>Email</p>
+                          <h4><a href="mailto:barry.ly@roads.com">barry.ly@roads.com</a></h4>
+                      </mbsc-listview-item>
+                      <mbsc-listview-item icon="material-phone-iphone">
+                          <p>Mobile</p>
+                          <h4><a href="tel:(302) 663-5247">(302) 663-5247</a></h4>
+                      </mbsc-listview-item>
+                  </mbsc-listview>
+              </mbsc-card-content>
+          </mbsc-card>
+      
+      </mbsc-accordion>
+  </ion-content>
+  
