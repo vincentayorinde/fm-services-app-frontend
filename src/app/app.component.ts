@@ -17,18 +17,19 @@ export class AppComponent {
   currentUser: any;
   
   public appPages = [
+  
+    {
+      title: 'Payment Instruction',
+      url: '/instruction',
+      icon: 'cash'
+    },
     {
       title: 'About FMApp',
       children: [
         {
-          title: 'Our Mission',
-          url: '/mission',
+          title: 'Introduction',
+          url: '/introduction',
           icon: 'alert'
-        },
-        {
-          title: 'Company Management',
-          url: '/management',
-          icon: 'briefcase'
         },
         {
           title: 'Our Services',
@@ -44,23 +45,13 @@ export class AppComponent {
           title: 'Why Choose Us?',
           url: '/why-us',
           icon: 'bulb'
-        },
-        {
-          title: 'Our Clients',
-          url: '/our-clients',
-          icon: 'contacts'
-        },
-        {
-          title: 'Charges',
-          url: '/charges',
-          icon: 'card'
-        },
+        }
       ]
     },
     {
-      title: 'Payment Instruction',
-      url: '/instruction',
-      icon: 'cash'
+      title: 'Contact us',
+      url: '/contact',
+      icon: 'call'
     },
     {
       title: 'Log out',
