@@ -2,9 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { BillService } from "../../../services/bill.service";
 import { PaymentService } from "../../../services/payment.service";
+import * as moment from 'moment';
+
 import {
   ToastController,
-  NavController,
   AlertController,
   LoadingController
 } from "@ionic/angular";
@@ -30,6 +31,7 @@ export class BillDetailPage implements OnInit {
   paymentMethod: any;
   public payment:any;
   public paymentData:any;
+  public generatedAt;
 
   constructor(
     public alertController: AlertController,
@@ -44,8 +46,6 @@ export class BillDetailPage implements OnInit {
     this.getBillDateForPayment();
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = data.userData;
-    // const paymentData_ = console.log(paymentData_);
-    // this.getBillforPayment = paymentData_;
   }
   presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
@@ -59,9 +59,12 @@ export class BillDetailPage implements OnInit {
   }
 
   getBill() {
+    this.presentLoading();
     this.billService.getSingleBill(this.getBillID()).subscribe(
       result => {
+        this.loadingController.dismiss();
         this.singleBillData = result[0];
+      this.generatedAt =  moment(this.singleBillData.generated_at).format('MMMM Do YYYY hh:mm a')
 
         this.billData = JSON.parse(this.singleBillData.items);
 
@@ -108,7 +111,6 @@ export class BillDetailPage implements OnInit {
     this.getBillforPayment = JSON.parse(
       localStorage.getItem("billDataPayment")
     );
-    console.log("Bill details", this.getBillforPayment);
     delete this.getBillforPayment.due_date;
     delete this.getBillforPayment.generated_at;
     delete this.getBillforPayment.items;
@@ -125,7 +127,6 @@ export class BillDetailPage implements OnInit {
       result => {
         this.loadingController.dismiss();
         this.paymentResponseData = result;
-        console.log(this.paymentResponseData);
         this.router.navigate(["customers", "dashboard"]);
         this.presentAlert("Go to Menu -> Payment Instruction, to see how to pay");
       },
@@ -145,7 +146,6 @@ export class BillDetailPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

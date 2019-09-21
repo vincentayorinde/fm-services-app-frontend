@@ -3,6 +3,7 @@ import { PaymentService } from "../../../services/payment.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AlertController, LoadingController, ToastController } from "@ionic/angular";
 import { Network } from '@ionic-native/network/ngx';
+import * as moment from 'moment';
 @Component({
   selector: "app-customer-payment-detail",
   templateUrl: "./customer-payment-detail.page.html",
@@ -14,6 +15,7 @@ export class CustomerPaymentDetailPage implements OnInit {
   public paymentMade: any;
   public adminUser: any;
   public updatePayment: object;
+  public paidAt;
   constructor(
     public paymentService: PaymentService,
     private route: ActivatedRoute,
@@ -26,7 +28,6 @@ export class CustomerPaymentDetailPage implements OnInit {
     this.adminUser = localStorage.getItem("userData");
     this.adminUser = JSON.parse(this.adminUser);
 
-    console.log(this.adminUser);
     this.getPayment();
     this.presentLoading();
   }
@@ -47,7 +48,8 @@ export class CustomerPaymentDetailPage implements OnInit {
       result => {
         this.loadingController.dismiss();
         this.singlePaymentData = result[0];
-        console.log(this.singlePaymentData);
+        this.paidAt =  moment(this.singlePaymentData.paid_at).format('MMMM Do YYYY hh:mm a')
+
         if(this.singlePaymentData){
           return this.singlePaymentData;
         }
@@ -68,6 +70,7 @@ export class CustomerPaymentDetailPage implements OnInit {
     user_name: this.singlePaymentData.user_name,
     amount: this.singlePaymentData.amount,
     service_type: this.singlePaymentData.service_type,
+    maintain_type: this.singlePaymentData.maintain_type,
     payment_method: this.singlePaymentData.payment_method,
     paid_at: this.singlePaymentData.paid_at,
   };
@@ -98,7 +101,6 @@ export class CustomerPaymentDetailPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

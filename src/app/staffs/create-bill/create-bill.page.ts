@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router  } from '@angular/router';
-import { ToastController, NavController, AlertController } from '@ionic/angular';
-import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
+import { ToastController, AlertController } from '@ionic/angular';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { BillService } from '../../services/bill.service';
 import { RequestService } from '../../services/request.service';
 
@@ -60,7 +60,6 @@ export class CreateBillPage implements OnInit {
       }
       getRequestUserId(){
         this.requestService.getSingleRequest(this.getRequestID()).subscribe((result) => {
-          console.log(result);
           return this.singleRequestData = result[0];
 
         }, (err) => {
@@ -85,6 +84,7 @@ export class CreateBillPage implements OnInit {
         this.itemFormData = {
           "billItems": val,
           "service_type": this.singleRequestData.service_type,
+          "maintain_type": this.singleRequestData.maintain_type,
           "generated_at": "",
           "amount": totals,
           "due_date": val.due_date,
@@ -132,7 +132,6 @@ export class CreateBillPage implements OnInit {
          {
           text: 'Okay',
           handler: () => {
-            console.log('Okay');
           }
         }
       ]

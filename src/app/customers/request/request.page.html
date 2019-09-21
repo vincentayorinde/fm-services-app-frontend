@@ -13,8 +13,8 @@
               <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
                 <h5>Service Details</h5>
                   <ion-item>
-                      <ion-label position="stacked">Service Type</ion-label>
-                      <ion-select [(ngModel)]="requestData.service_type" placeholder="Select">
+                      <ion-label position="stacked">Service Type <span class="req">*</span> </ion-label>
+                      <ion-select  (ionChange)="checkMaintain()" [(ngModel)]="requestData.service_type" interface="action-sheet" placeholder="Select">
                         <ion-select-option value="General Maintenance">General Maintenance</ion-select-option>
                         <ion-select-option value="Housekeeping and Janitorial Services">Housekeeping and Janitorial Services</ion-select-option>
                         <ion-select-option value="Landscaping and Ground Maintenance">Landscaping and Ground Maintenance</ion-select-option>
@@ -24,59 +24,69 @@
                         <ion-select-option value="Property Management">Property Management</ion-select-option>
                       </ion-select>
                     </ion-item>
+                    <ion-item *ngIf="maintain">
+                      <ion-label position="stacked">General Maintenance Type <span class="req">*</span> </ion-label>
+                      <ion-select [(ngModel)]="requestData.maintain_type" interface="action-sheet" placeholder="Select">
+                        <ion-select-option value="Electrical Works">Electrical Works</ion-select-option>
+                        <ion-select-option value="Carpentry Work">Carpentry Work</ion-select-option>
+                        <ion-select-option value="Plumbing Works">Plumbing Works</ion-select-option>
+                        <ion-select-option value="Painting Works">Painting Works</ion-select-option>
+                        <ion-select-option value="Interior Decorations and Designs">Interior Decorations and Designs</ion-select-option>
+                      </ion-select>
+                    </ion-item>
                     <ion-item>
-                        <ion-label position="stacked">Priority</ion-label>
-                        <ion-select [(ngModel)]="requestData.service_priority" placeholder="Select">
+                        <ion-label position="stacked">Priority <span class="req">*</span> </ion-label>
+                        <ion-select (ionChange)="checkPriority()" [(ngModel)]="requestData.service_priority" interface="action-sheet" placeholder="Select">
                           <ion-select-option value="Routine">Routine</ion-select-option>
                           <ion-select-option value="Emergency">Emergency (1 Day)</ion-select-option>
                         </ion-select>
                       </ion-item>
                     <ion-item>
-                          <ion-label position="floating">Description</ion-label>
-                          <ion-textarea [(ngModel)]="requestData.service_desc"></ion-textarea>
+                          <ion-label position="floating">Description <span class="req">*</span> </ion-label>
+                          <ion-textarea placeholder="Describe your request" [(ngModel)]="requestData.service_desc"></ion-textarea>
                     </ion-item>
-                    <ion-item>
-                        <ion-label>Start Date</ion-label>
-                        <ion-datetime [(ngModel)]="requestData.start_date" value="2019-04-19" min="2019-01" max="2030"
+                    <ion-item *ngIf="setDate">
+                        <ion-label>Start Date  <span class="req">* </span> </ion-label>
+                        <ion-datetime [(ngModel)]="requestData.start_date" placeholder="Select Date" [min]="minDate.toISOString()" [max]="maxDate"
                           [dayShortNames]="customDayShortNames"
                           displayFormat="DDD. MMM DD, YY"
-                          monthShortNames="Jan., Feb., Mar., Apr., May, Jun., Jul., Aug., Sep., Cct., Nov., Dec."></ion-datetime>
+                          monthShortNames="Jan., Feb., Mar., Apr., May, Jun., Jul., Aug., Sep., Oct., Nov., Dec."></ion-datetime>
                       </ion-item>
-                      <ion-item>
-                          <ion-label>End Date</ion-label>
-                          <ion-datetime [(ngModel)]="requestData.end_date" value="2019-04-25" min="2019-01" max="2030"
+                      <ion-item *ngIf="setDate">
+                          <ion-label>End Date <span class="req">*</span> </ion-label>
+                          <ion-datetime [(ngModel)]="requestData.end_date" placeholder="Select Date" [min]="requestData.start_date" [max]="maxDate"
                             [dayShortNames]="customDayShortNames"
                             displayFormat="DDD. MMM DD, YY"
-                            monthShortNames="Jan., Feb., Mar., Apr., May, Jun., Jul., Aug., Sep., Cct., Nov., Dec."></ion-datetime>
+                            monthShortNames="Jan., Feb., Mar., Apr., May, Jun., Jul., Aug., Sep., Oct., Nov., Dec."></ion-datetime>
                         </ion-item>
-                        <h5>Location Details</h5>
+                        <h5>Location Details </h5>
                         <ion-item>
-                          <ion-label position="stacked">Tel No.</ion-label>
+                          <ion-label position="stacked">Tel No. <span class="req">*</span> </ion-label>
                           <ion-input [(ngModel)]="requestData.tel_no"  type="tel" placeholder="Enter No." required></ion-input>
                       </ion-item>
                         <ion-item>
-                          <ion-label position="stacked">House No.</ion-label>
+                          <ion-label position="stacked">House No. <span class="req">*</span> </ion-label>
                           <ion-input [(ngModel)]="requestData.house_no" type="text" placeholder="Enter House No." required></ion-input>
                       </ion-item>
                         <ion-item>
-                            <ion-label position="stacked">Area</ion-label>
+                            <ion-label position="stacked">Area <span class="req">*</span> </ion-label>
                             <ion-input [(ngModel)]="requestData.house_area" type="text" placeholder="Enter area" required></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked">Landmark</ion-label>
+                            <ion-label position="stacked">Landmark <span class="req">*</span> </ion-label>
                             <ion-input [(ngModel)]="requestData.house_landmark" type="text" placeholder="Enter landmark" required></ion-input>
                         </ion-item>
                         <ion-item>
                             <ion-label position="stacked">Digital Address</ion-label>
-                            <ion-input [(ngModel)]="requestData.digital_address" type="text" placeholder="Enter digital address" required></ion-input>
+                            <ion-input [(ngModel)]="requestData.digital_address" type="text" placeholder="Enter digital address"></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked">City</ion-label>
+                            <ion-label position="stacked">City <span class="req">*</span> </ion-label>
                             <ion-input  [(ngModel)]="requestData.city" type="text" placeholder="Enter city" required></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="stacked">Select Region</ion-label>
-                            <ion-select [(ngModel)]="requestData.region"  placeholder="Select">
+                            <ion-label position="stacked">Select Region <span class="req">*</span> </ion-label>
+                            <ion-select [(ngModel)]="requestData.region" interface="action-sheet" placeholder="Select">
                               <ion-select-option value="Ashanti">Ashanti</ion-select-option>
                               <ion-select-option value="Brong-Ahafo">Brong-Ahafo</ion-select-option>
                               <ion-select-option value="Central">Central</ion-select-option>

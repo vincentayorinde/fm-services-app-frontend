@@ -11,7 +11,7 @@ let apiURL = "https://encrisoft.com/fm-s/public/index.php/api/users";
 export class UsersService {
   constructor(public http: Http) {}
   setHeaders() {
-    let headerType = {'Access-Control-Allow-Origin':'*', 'Content-Type': 'application/json' };
+    let headerType = "application/json; charset=UTF-8";
     let headers = new Headers({ "Content-Type": headerType });
     let options = new RequestOptions({ headers: headers });
     return options;
@@ -31,12 +31,10 @@ export class UsersService {
 
   // update user
   updateUser(userId, updateValues) {
-    let updateOptions = this.setHeaders();
+    let putOptions = this.setHeaders();
     return this.http
       .put(
-        apiURL + "/update/" + userId,
-        JSON.stringify(updateValues),
-        updateOptions
+        apiURL + "/update/" + userId, JSON.stringify(updateValues), putOptions
       )
       .pipe(map(res => res.json()));
   }

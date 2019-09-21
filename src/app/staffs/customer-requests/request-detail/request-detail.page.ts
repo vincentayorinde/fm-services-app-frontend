@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { RequestService } from "../../../services/request.service";
 import { AlertController, LoadingController, ToastController } from "@ionic/angular";
 import { Network } from '@ionic-native/network/ngx';
+import * as moment from 'moment';
 
 @Component({
   selector: "app-request-detail",
@@ -19,6 +20,12 @@ export class RequestDetailPage implements OnInit {
   public reqData: any;
   public updateData: object;
   public endData: object;
+  public not_applicable: any;
+  public startDate;
+  public endDate;
+  public dateAdded;
+  public adminStartDate;
+  public adminEndDate;
 
   constructor(
     public requestService: RequestService,
@@ -62,6 +69,12 @@ export class RequestDetailPage implements OnInit {
       result => {
         this.loadingController.dismiss();
         this.singleRequestData = result[0];
+        this.startDate = moment(this.singleRequestData.start_date).format('MMMM Do YYYY hh:mm a')
+        this.endDate = moment(this.singleRequestData.end_date).format('MMMM Do YYYY hh:mm a')
+        this.adminStartDate = moment(this.singleRequestData.admin_started_at).format('MMMM Do YYYY hh:mm a')
+        this.adminEndDate = moment(this.singleRequestData.admin_ended_at).format('MMMM Do YYYY hh:mm a')
+        this.dateAdded =  moment(this.singleRequestData.date_adeed).format('MMMM Do YYYY hh:mm a')
+        
         this.reqData = result[0];
         if (this.reqData){
           return this.reqData;
@@ -129,7 +142,6 @@ export class RequestDetailPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

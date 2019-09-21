@@ -17,7 +17,7 @@
           </ion-col>
           <ion-col id="date" size="4">
             <div>
-              <small>{{ this.singleBillData.generated_at }}</small>
+              <small>{{ generatedAt }}</small>
             </div>
            </ion-col>
         </ion-row>
@@ -52,7 +52,7 @@
                   <strong><small>¢ {{ singleBillData.amount }}</small></strong>
                </ion-col>
           </ion-row>
-          <p *ngIf="this.singleBillData.status == 'Not Paid'">=
+          <p *ngIf="this.singleBillData.status == 'Not Paid'">
             <ion-button color="light" disabled expand="block"> Not Paid Yet</ion-button>
           </p>
           <ion-button *ngIf="this.singleBillData.status == 'Paid'" color="success"  disabled expand="block">Already Paid</ion-button>

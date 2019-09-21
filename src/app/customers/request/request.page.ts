@@ -1,14 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import {
   ToastController,
-  NavController,
   AlertController,
-  Platform,
   LoadingController
 } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { RequestService } from "../../services/request.service";
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: "app-request",
@@ -16,33 +13,32 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
   styleUrls: ["./request.page.scss"]
 })
 export class RequestPage implements OnInit {
+  minDate:any = new Date();
+  maxDate:any = this.minDate.getFullYear()+6;
+  
   userID: number;
   userData: any;
   toast: any;
   serviceResponseData: any;
   customDayShortNames: '';
-
+  public maintain: boolean;
+  public setDate: boolean;
   constructor(
     public alertController: AlertController,
     public requestService: RequestService,
     private toastController: ToastController,
-    private navCtrl: NavController,
     private router: Router,
-    private localNotifications: LocalNotifications,
-    private plt: Platform,
     public loadingController: LoadingController
-  ) {}
+  ) {
+    this.maintain = false;
+    this.setDate = false;
+  }
   presentLoading =  async () =>  {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
    await loading.present();
   }
-  // getUserID() {
-  //   const data = JSON.parse(localStorage.getItem("userData"));
-  //   this.userID = data.userData.id;
-  //   return this.userID;
-  // }
   getUserData() {
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userData = data.userData;
@@ -54,6 +50,7 @@ export class RequestPage implements OnInit {
     user_name: this.getUserData().name,
     user_email: this.getUserData().email,
     service_type: "",
+    maintain_type: "",
     service_priority: "",
     service_desc: "",
     start_date: "",
@@ -67,59 +64,77 @@ export class RequestPage implements OnInit {
     region: "",
     status: "Not Started"
   };
-  // sendNotification() {
-  //   this.localNotifications.schedule({
-  //     id: 1,
-  //     title: 'New Request',
-  //     text: 'FM Services Notification',
-  //     trigger: { at: new Date(new Date().getTime() + 5 * 1000 )},
-  //     data: { mydata: 'This is the request notification content' },
-  //   });
-  // }
+  checkMaintain(){
+    this.requestData.service_type === 'General Maintenance' ? this.maintain = true : this.maintain = false
+  }
+  checkPriority(){
+    this.requestData.service_priority === 'Routine' ? this.setDate = true : this.setDate = false
+  }
   request() {
-    if (
-      this.requestData.service_type &&
-      this.requestData.service_priority &&
-      this.requestData.service_desc &&
-      this.requestData.start_date &&
-      this.requestData.end_date &&
-      this.requestData.tel_no &&
-      this.requestData.house_no &&
-      this.requestData.house_area &&
-      this.requestData.house_landmark &&
-      this.requestData.digital_address &&
-      this.requestData.city &&
-      this.requestData.region &&
-      this.requestData.status
-    ) {
-      this.presentLoading();
-      console.log('>>> req data', this.requestData);
-      this.requestService.postRequest(this.requestData).subscribe(
-        result => {
-          this.serviceResponseData = result;
-          if (this.serviceResponseData.requestData) {
-            this.loadingController.dismiss();
-            console.log(this.serviceResponseData);
-            this.router.navigate(["customers", "dashboard"]);
-            this.presentAlert("Request as be placed, We'll call you shortly");
-            // this.sendNotification();
-          } else {
-            this.loadingController.dismiss();
-            this.presentToast("All fields are required", "dark");
+    if ( this.requestData.service_type) {
+      if(this.requestData.service_type === 'General Maintenance' && !this.requestData.maintain_type) {
+        this.presentToast("Please specify a General Maintenance Type", "dark");
+       }else{
+        if(this.requestData.service_priority) {
+         if(this.requestData.service_priority === 'Routine' && !this.requestData.start_date) {
+            this.presentToast("Please specify your preferred Start Date", "dark");
+          }else{
+            if(this.requestData.service_desc) {
+                      if(this.requestData.tel_no) {
+                        if(this.requestData.house_no) {
+                            if(this.requestData.house_area) {
+                                  if(this.requestData.house_landmark) {
+                                      if(this.requestData.city){
+                                          if(this.requestData.region){
+                                              this.presentLoading();
+                                              this.requestService.postRequest(this.requestData).subscribe(
+                                                result => {
+                                                  this.serviceResponseData = result;
+                                                  if (this.serviceResponseData.requestData) {
+                                                    this.loadingController.dismiss();
+                                                    this.router.navigate(["customers", "dashboard"]);
+                                                    this.presentAlert("Request as be placed, We'll call you shortly");
+                                                  } else {
+                                                    this.loadingController.dismiss();
+                                                    this.presentToast("All fields are required", "dark");
+                                                  }
+                                                },
+                                                err => {
+                                                  this.loadingController.dismiss();
+                                                  this.presentToast("Please Ensure the data provided is Valid", "dark");
+                                                }
+                                              );
+                                          }else{
+                                            this.presentToast("Please specify the Region", "dark");
+                                          }
+                                      }else{
+                                         this.presentToast("Please provide the City", "dark");
+                                      }
+                                  }else{
+                                    this.presentToast("Please provide the Landmark", "dark");
+                                }
+                            }else{
+                              this.presentToast("Please provide the House Area", "dark");
+                            }
+                        }else{
+                            this.presentToast("Please provide the House No.", "dark");
+                        }
+                      }else{
+                        this.presentToast("Please provide the Tel No.", "dark");
+                      }
+              }else{
+              this.presentToast("Please provide a Service Description", "dark");
+            }
           }
-        },
-        err => {
-          this.loadingController.dismiss();
-          console.log('the error >>>', err);
-          this.presentToast("Please check the data provided", "dark");
+        } else {
+          this.presentToast("Please specify a Service Priority", "dark");
         }
-      );
+      }
     } else {
-      console.log('the data >>>', this.requestData);
-      this.presentToast("All fields are required.", "dark");
+      this.presentToast("Please specify a Service Type", "dark");
     }
   }
-
+ 
   async presentToast(msg, status) {
     let toast = await this.toastController.create({
       message: msg,
@@ -138,7 +153,6 @@ export class RequestPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

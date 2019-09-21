@@ -16,7 +16,9 @@
           <p>
             {{  data.generated_at }}
             <br>
-            Payment of <strong><span style="color: green;">¢ {{data.amount}}</span></strong> for <strong> {{  data.service_type }}</strong> is 
+            Payment of <strong><span style="color: green;">¢ {{data.amount}}</span></strong> for <strong> {{  data.service_type }}  </strong>
+            <strong *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </strong>
+            is 
             <span class="status" style="background-color: green;">Completed</span>
           
           </p>
@@ -25,7 +27,8 @@
             <p>
               {{  data.generated_at }}
               <br>
-              Payment of <strong><span style="color: green;">¢ {{data.amount}}</span></strong> for <strong> {{  data.service_type }}</strong> is 
+              Payment of <strong><span style="color: green;">¢ {{data.amount}}</span></strong> for <strong> {{  data.service_type }}</strong>
+              <strong *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </strong> is 
               <span class="status" style="background-color: orange;">In Progress</span>
               
             </p>
@@ -34,7 +37,8 @@
             <p>
               {{  data.generated_at }}
               <br>
-              Payment of <strong><span style="color: green;">¢ {{data.amount}}</span></strong> for <strong> {{  data.service_type }}</strong> is 
+              Payment of <strong><span style="color: green;">¢ {{data.amount}}</span></strong> for <strong> {{  data.service_type }}</strong> 
+              <strong *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </strong> is 
               <span class="status" style="background-color: gray;">Cancelled</span>
             
             </p>

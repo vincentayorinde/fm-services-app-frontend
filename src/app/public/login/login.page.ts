@@ -60,7 +60,6 @@ export class LoginPage implements OnInit {
                 
                 this.router.navigate(["staffs", "staff-dashboard"]);
               }
-              console.log(this.responseData);
               localStorage.setItem(
                 "userData",
                 JSON.stringify(this.responseData)
@@ -102,7 +101,6 @@ export class LoginPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

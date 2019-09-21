@@ -20,7 +20,7 @@
       </ion-col>
       <ion-col size="4">
           <p class="date">Requested on <br>
-            {{ singleRequestData.date_added }}
+            {{ dateAdded }}
           </p>
          </ion-col>
     </ion-row>
@@ -31,6 +31,7 @@
         </ion-col>
         <ion-col size="8">
           <small>{{ singleRequestData.service_type }}</small>
+          <small *ngIf="singleRequestData.service_type == 'General Maintenance'">: {{ singleRequestData.maintain_type }} </small>
         </ion-col>
     </ion-row>
     <ion-row>
@@ -39,6 +40,14 @@
         </ion-col>
         <ion-col size="8">
           <small>{{ singleRequestData.service_desc }}</small>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="4">
+          <small class="left-col">Phone </small>
+        </ion-col>
+        <ion-col size="8">
+          <small>{{ singleRequestData.tel_no }}</small>
         </ion-col>
     </ion-row>
     <ion-row>
@@ -70,7 +79,7 @@
           <small class="left-col">Digital Address </small>
         </ion-col>
         <ion-col size="8">
-          <small>{{ singleRequestData.digital_address }}</small>
+          <small *ngIf="singleRequestData.digital_address !='';else not_applicable"> {{ singleRequestData.digital_address }} </small>          
         </ion-col>
     </ion-row>
     <ion-row>
@@ -90,11 +99,27 @@
         </ion-col>
     </ion-row>
     <ion-row>
+            <ion-col size="4">
+            <small class="left-col"> Request Date </small>
+            </ion-col>
+            <ion-col class="" size="8">
+                <small> {{ dateAdded }}</small>
+            </ion-col>
+        </ion-row>
+     <ion-row>
+      <ion-col size="4">
+      <small class="left-col"> Service Priority </small>
+      </ion-col>
+      <ion-col class="" size="8">
+          <small> {{ singleRequestData.service_priority }}</small>
+      </ion-col>
+  </ion-row>
+    <ion-row>
         <ion-col size="4">
           <small class="left-col">Customer Start Date </small>
         </ion-col>
         <ion-col size="8">
-          <small>{{ singleRequestData.start_date }}</small>
+          <span *ngIf="singleRequestData.start_date !='0000-00-00 00:00:00';else not_applicable"><small> {{ startDate }} </small></span> 
         </ion-col>
     </ion-row>
     <ion-row>
@@ -102,7 +127,7 @@
           <small class="left-col">Customer End Date </small>
         </ion-col>
         <ion-col size="8">
-          <small>{{ singleRequestData.end_date }}</small>
+          <span *ngIf="singleRequestData.end_date !='0000-00-00 00:00:00'; else not_applicable"><small> {{ endDate }} </small></span>                  
         </ion-col>
     </ion-row>
     <ion-row>
@@ -118,7 +143,7 @@
           <small class="left-col">Admin started on </small>
         </ion-col>
         <ion-col size="8">
-          <small>{{ singleRequestData.admin_started_at }}</small>
+          <span *ngIf="singleRequestData.admin_started_at;else not_applicable"><small> {{ adminStartDate }} </small></span> 
         </ion-col>
     </ion-row>
     <ion-row>
@@ -126,7 +151,7 @@
           <small class="left-col">Admin ended on</small>
         </ion-col>
         <ion-col size="8">
-          <small>{{ singleRequestData.admin_ended_at }}</small>
+          <span *ngIf="singleRequestData.admin_ended_at;else not_applicable"><small> {{ adminEndDate }} </small></span> 
         </ion-col>
     </ion-row>
     <ion-row>
@@ -188,4 +213,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ng-template #not_applicable>n\a</ng-template>
 </ion-content>

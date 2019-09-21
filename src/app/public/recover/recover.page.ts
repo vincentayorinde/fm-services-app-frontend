@@ -71,7 +71,6 @@ export class RecoverPage implements OnInit {
         {
           text: "Okay",
           handler: () => {
-            console.log("Okay");
           }
         }
       ]

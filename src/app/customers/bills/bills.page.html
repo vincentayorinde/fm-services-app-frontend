@@ -12,28 +12,34 @@
   <ion-list *ngIf="AllBillsData;else loader"> 
   <ion-searchbar animated (ionChange)="search( $event )"></ion-searchbar>
     <ion-item-sliding *ngFor="let data of AllBillsData | billSearch: toSearch">
-        <ion-item *ngIf="data.status == 'Paid'" routerLink='/customers/bills/{{  data.id }}'>
+        <ion-item *ngIf="data.status == 'Paid'" routerLink='/customers/bills/{{  data.request_id }}'>
           <p>
             <small>{{  data.generated_at }}</small>
             <br>
-              {{  data.service_type }} Request is 
+              {{  data.service_type }} 
+              <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>              
+              Request is 
             <span class="status" style="background-color: green;">Paid</span>
          </p>
         </ion-item>
-        <ion-item *ngIf="data.status == 'Not Paid'" routerLink='/customers/bills/{{  data.id }}'>
+        <ion-item *ngIf="data.status == 'Not Paid'" routerLink='/customers/bills/{{  data.request_id }}'>
           <p>
             <small>{{  data.generated_at }}</small>
             <br>
-              {{  data.service_type }} Request is 
+              {{  data.service_type }} 
+              <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>
+              Request is 
               <span class="status" style="background-color: orange;">Un-paid</span>
               
             </p>
           </ion-item>
-          <ion-item *ngIf="data.date_due >= todayDate" routerLink='/customers/bills/{{  data.id }}'>
+          <ion-item *ngIf="data.date_due >= todayDate" routerLink='/customers/bills/{{  data.request_id }}'>
             <p>
               <small>{{  data.generated_at }}</small>
               <br>
-                {{  data.service_type }} Request is 
+                {{  data.service_type }}
+              <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>                
+                Request is
               <span class="status" style="background-color: red;">Overdue</span>
             
             </p>

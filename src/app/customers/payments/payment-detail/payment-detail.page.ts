@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute  } from '@angular/router';
-import { PaymentService } from '../../../services/payment.service'; 
+import { PaymentService } from '../../../services/payment.service';
+import { LoadingController } from '@ionic/angular';
+import * as moment from 'moment';
 
 
 @Component({
@@ -13,26 +15,32 @@ export class PaymentDetailPage implements OnInit {
   public singlePaymentData : any;
   public userDetails: any;
   public paymentData: any;
+  public paidAt;
 
 
-  constructor(public paymentService: PaymentService, private route: ActivatedRoute) {
+  constructor(public paymentService: PaymentService, private loadingController: LoadingController, private route: ActivatedRoute) {
     this.getPayment();
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
    }
-
+   presentLoading =  async () =>  {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+   await loading.present();
+  }
   getPaymentID(){
     this.paymentId = this.route.snapshot.paramMap.get('payment-detail');
     return this.paymentId;
   }
 
   getPayment(){
-
+    this.presentLoading();    
     this.paymentService.getSinglePayment(this.getPaymentID()).subscribe((result) => {
-
+      this.loadingController.dismiss();
       this.singlePaymentData = result[0];
-      
-      console.log(this.singlePaymentData);
+      this.paidAt =  moment(this.singlePaymentData.paid_at).format('MMMM Do YYYY hh:mm a')
+
      
     }, (err) => {
       console.log(err);

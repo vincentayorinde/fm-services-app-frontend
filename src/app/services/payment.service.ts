@@ -18,7 +18,6 @@ export class PaymentService {
 
   // Create request
   postPayment(paymentValues) {
-    console.log(paymentValues, "Payment Values");
     let postOptions = this.setHeaders();
     return this.http
       .post(apiURL, JSON.stringify(paymentValues), postOptions)

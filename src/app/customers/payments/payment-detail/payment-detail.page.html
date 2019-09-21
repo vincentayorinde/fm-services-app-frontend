@@ -21,10 +21,13 @@
          </ion-col>
       </ion-row>
       <ion-row class="body" padding  style="line-height: 25px">
-        Date & Time: {{singlePaymentData.paid_at}}
+        Date: {{ paidAt }}
         <p>
           Amount recieved from <span style="text-decoration: underline"><strong>{{singlePaymentData.user_name}}</strong></span> <br>
-          Being payment for <span style="text-decoration: underline"><strong>{{singlePaymentData.service_type}}</strong></span> Service<br>
+          Being payment for <span style="text-decoration: underline"><strong>{{singlePaymentData.service_type}}</strong></span> 
+          <strong *ngIf="singlePaymentData.service_type == 'General Maintenance'">: {{ singlePaymentData.maintain_type }} </strong>
+          
+          Service<br>
           Amount <span style="text-decoration: underline"><strong>GHS {{singlePaymentData.amount}}</strong></span>
           </p>
         </ion-row>

@@ -23,7 +23,10 @@
           <strong
             ><span style="color: green;">¢ {{ data.amount }}</span></strong
           >
-          for <strong> {{ data.service_type }}</strong> is
+          for <strong> {{ data.service_type }}
+            <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>                
+
+          </strong> is
           <span class="status" style="background-color: green;">Confirmed</span>
         </p>
       </ion-item>
@@ -38,7 +41,10 @@
           <strong
             ><span style="color: green;">¢ {{ data.amount }}</span></strong
           >
-          for <strong> {{ data.service_type }}</strong> is
+          for <strong> {{ data.service_type }}
+            <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>                
+
+          </strong> is
           <span class="status" style="background-color: orange;"
             >In Progress</span
           >
@@ -55,7 +61,10 @@
           <strong
             ><span style="color: green;">¢ {{ data.amount }}</span></strong
           >
-          for <strong> {{ data.service_type }}</strong> is
+          for <strong> {{ data.service_type }}
+            <span *ngIf="data.service_type == 'General Maintenance'">: {{ data.maintain_type }} </span>                
+
+          </strong> is
           <span class="status" style="background-color: gray;">Cancelled</span>
         </p>
       </ion-item>

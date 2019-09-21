@@ -17,15 +17,41 @@ export class AppComponent {
   currentUser: any;
   
   public appPages = [
-    {
-      title: 'Home',
-      url: '/customers/dashboard',
-      icon: 'home'
-    },
+  
     {
       title: 'Payment Instruction',
       url: '/instruction',
       icon: 'cash'
+    },
+    {
+      title: 'About FMApp',
+      children: [
+        {
+          title: 'Introduction',
+          url: '/introduction',
+          icon: 'alert'
+        },
+        {
+          title: 'Our Services',
+          url: '/services',
+          icon: 'logo-buffer'
+        },
+        {
+          title: 'Working Areas',
+          url: '/working-areas',
+          icon: 'build'
+        },
+        {
+          title: 'Why Choose Us?',
+          url: '/why-us',
+          icon: 'bulb'
+        }
+      ]
+    },
+    {
+      title: 'Contact us',
+      url: '/contact',
+      icon: 'call'
     },
     {
       title: 'Log out',

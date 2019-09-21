@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute  } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { RequestService } from '../../../services/request.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-detail',
@@ -13,6 +14,10 @@ export class DetailPage implements OnInit {
   public singleRequestData : any;
   public singleRequestBillData : any;
   public userDetails: any;
+  public not_applicable: any;
+  public newStartDate;
+  public newEndDate;
+  public newDateAdded;
 
   constructor(public requestService: RequestService, private route: ActivatedRoute, public loadingController: LoadingController,  ) { 
     this.presentLoading();
@@ -35,6 +40,9 @@ export class DetailPage implements OnInit {
    getRequest(){
     this.requestService.getSingleRequest(this.getRequestID()).subscribe((result) => {
       this.singleRequestData = result[0];
+      this.newDateAdded =  moment(this.singleRequestData.date_added).format('MMMM Do YYYY hh:mm a')
+      this.newStartDate =  moment(this.singleRequestData.start_date).format('MMMM Do YYYY hh:mm a')
+      this.newEndDate =  moment(this.singleRequestData.end_date).format('MMMM Do YYYY hh:mm a')
       this.loadingController.dismiss();
     }, (err) => {
       console.log(err);
@@ -44,7 +52,6 @@ export class DetailPage implements OnInit {
   getRequestBill(){
     this.requestService.getSingleRequestBill(this.getRequestID()).subscribe((result) => {
       this.singleRequestBillData = result[0];
-      console.log(this.singleRequestBillData);
     }, (err) => {
       console.log(err);
     })
